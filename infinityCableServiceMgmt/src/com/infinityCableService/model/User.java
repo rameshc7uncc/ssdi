@@ -6,9 +6,10 @@ public class User {
 		
 	}
 	
-	public User(long userId, String firstName, String lastName, String emailAddress, long phoneNumber, String address1,
-			String address2, String city, String state, int pinCode, String userCreateDate, String password,
-			String roleId, String status) {
+	public User(long userId, String firstName, String lastName,
+			String emailAddress, long phoneNumber, String address1,
+			String address2, String city, String state, int pinCode,
+			String password, String roleId, String status,String userCreateDate) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -20,10 +21,10 @@ public class User {
 		this.city = city;
 		this.state = state;
 		this.pinCode = pinCode;
-		this.userCreateDate = userCreateDate;
 		this.password = password;
 		this.roleId = roleId;
 		this.status = status;
+		this.userCreateDate = userCreateDate;
 	}
 	
 	private long userId;
@@ -36,11 +37,10 @@ public class User {
 	private String city;
 	private String state;
 	private int pinCode;
-	private String userCreateDate;
 	private String password;
 	private String roleId;
 	private String status;
-	
+	private String userCreateDate;
 	
 	public long getUserId() {
 		return userId;

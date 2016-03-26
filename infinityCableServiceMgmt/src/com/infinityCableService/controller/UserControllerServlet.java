@@ -52,12 +52,19 @@ public class UserControllerServlet extends HttpServlet {
 		} else {
 			switch (action) {
 			case "login":
+				
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
 				// check whether user exists in DB
+				
 				User existingUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
 				if (existingUser != null) {
+					System.out.println("inside if not null");
+					System.out.println(existingUser.getEmailAddress());
+					System.out.println(existingUser.getRoleId());					
+					System.out.println("inside if not null");
 					if (email.equals(existingUser.getEmailAddress())) {
+						System.out.println("inside login inside get email address");
 						if (existingUser.getRoleId().equalsIgnoreCase("CUSTOMER")) {
 							System.out.println("***User is CUSTOMER.***");
 							session.setAttribute("theUser", existingUser);
@@ -65,6 +72,7 @@ public class UserControllerServlet extends HttpServlet {
 						} else if (existingUser.getRoleId().equalsIgnoreCase("ADMIN")) {
 							System.out.println("***User is ADMIN.***");
 							session.setAttribute("theAdmin", existingUser);
+							System.out.println(url);
 							url = "/adminHomePage.jsp";
 						}
 					}
@@ -106,7 +114,7 @@ public class UserControllerServlet extends HttpServlet {
 						url = "/signup.jsp";
 					}
 				}
-
+				
 				break;
 			case "forgotPassword":
 				email = request.getParameter("email");
@@ -124,7 +132,7 @@ public class UserControllerServlet extends HttpServlet {
 				break;
 			}
 		}
-
+System.out.println(url);
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

@@ -13,11 +13,6 @@ import com.infinityCableService.model.User;
 
 public class UserDao {
 	public static void main(String[] arg) {
-		
-		Long userID = createUser("lakshmi", "sridhar", "lsridhar@uncc.edu", 60, "5440 S.Miami Blvd,", "Apt 301",
-				"Durham", "NC", 277703, "Summer100", "CUSTOMER", "Active", "03/19/2016");
-		System.out.println(userID);
-		
 
 	}
 	//method for inserting a user record in User table
@@ -83,10 +78,11 @@ public class UserDao {
 				System.out.println("There is no User registered with email address = " + emailAddress);
 				user = null;
 			} else {
-				System.out.println("User exisits for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
+				System.out.println("User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
+				System.out.println(user);	
 			}
-
+			
 		} catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();
@@ -107,6 +103,7 @@ public class UserDao {
 		User user = new User();
 
 		try {
+			System.out.println("inside dao");
 			transaction = session.beginTransaction();
 			String hql = " FROM User u WHERE u.emailAddress = :emailId";
 			Query query = session.createQuery(hql);
@@ -120,7 +117,7 @@ public class UserDao {
 				System.out.println("User exisits for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
 			}
-
+			System.out.println(user);
 		} catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();
