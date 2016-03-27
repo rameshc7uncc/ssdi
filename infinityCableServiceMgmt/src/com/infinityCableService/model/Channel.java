@@ -6,7 +6,7 @@ public class Channel {
 		
 	}
 	
-	public Channel(int c_Id, String c_Name, String c_Price, String c_Status, 
+	public Channel(int c_Id, String c_Name, double c_Price, String c_Status, 
 			String c_HD) {
 		super();
 		this.c_Id = c_Id;
@@ -18,8 +18,7 @@ public class Channel {
 	
 	private int c_Id;
 	private String c_Name;
-	
-	private String c_Price;
+	private double c_Price;
 	private String c_Status;
 	private String c_HD;
 	
@@ -37,10 +36,10 @@ public class Channel {
 	public void setc_Name(String c_Name) {
 		this.c_Name = c_Name;
 	}
-	public String getc_Price() {
+	public double getc_Price() {
 		return c_Price;
 	}
-	public void setc_Price(String c_Price) {
+	public void setc_Price(double c_Price) {
 		this.c_Price = c_Price;
 	}
 	public String getc_Status() {

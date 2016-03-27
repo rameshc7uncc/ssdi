@@ -16,7 +16,7 @@ import com.infinityCableService.model.User;
 /**
  * Servlet implementation class UserControllerServlet
  */
-@WebServlet("/UserControllerServlet")
+
 public class UserControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,10 +59,6 @@ public class UserControllerServlet extends HttpServlet {
 				
 				User existingUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
 				if (existingUser != null) {
-					System.out.println("inside if not null");
-					System.out.println(existingUser.getEmailAddress());
-					System.out.println(existingUser.getRoleId());					
-					System.out.println("inside if not null");
 					if (email.equals(existingUser.getEmailAddress())) {
 						System.out.println("inside login inside get email address");
 						if (existingUser.getRoleId().equalsIgnoreCase("CUSTOMER")) {
@@ -72,7 +68,6 @@ public class UserControllerServlet extends HttpServlet {
 						} else if (existingUser.getRoleId().equalsIgnoreCase("ADMIN")) {
 							System.out.println("***User is ADMIN.***");
 							session.setAttribute("theAdmin", existingUser);
-							System.out.println(url);
 							url = "/adminHomePage.jsp";
 						}
 					}
@@ -132,7 +127,6 @@ public class UserControllerServlet extends HttpServlet {
 				break;
 			}
 		}
-System.out.println(url);
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

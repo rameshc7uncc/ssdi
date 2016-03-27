@@ -55,8 +55,12 @@
 	</class>
 	
 	<class name="com.infinityCableService.model.Package_Channel" table="Package_Channel">
-	<id name="c_Id" type="int" column="C_ID"> </id>
-	<property name="p_Id" type="int" column="P_ID"> </property>                  
+	
+	<id name="row_id" type="int" column="ROW_ID"> 
+	 <generator class="increment" />
+	</id>
+	<property name="p_Id" type="int" column="P_ID"> </property>  
+	<property name="c_Id" type="int" column="C_ID"> </property>                 
 	</class>
 	
 </hibernate-mapping>
