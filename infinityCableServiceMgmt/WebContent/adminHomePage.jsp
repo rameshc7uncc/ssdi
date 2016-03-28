@@ -9,5 +9,19 @@
 <body>
 <h1> This is Admin Home Page</h1>
 <h2>Welcome!!</h2>
+
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="addNewPackage">
+		<input type="submit" value="Add Package"  >
+        <br>
+        
+</form>
+<form action="PackagesControllerServlet" method="post">
+<input type="hidden" name="action" value="updatePackage">
+		<input type="submit" value="Update Package"  >
+		</form>
+        
+
 </body>
+
 </html>

@@ -39,7 +39,6 @@ public class UserDao {
 			user.setPassword(password);
 			user.setRoleId(roleId);
 			user.setStatus(status);
-			System.out.println("User object is set");
 			session.save(user);
 			userId = (Long) session.save(user);
 			System.out.println("User saved in DB");
@@ -80,7 +79,6 @@ public class UserDao {
 			} else {
 				System.out.println("User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
-				System.out.println(user);	
 			}
 			
 		} catch (HibernateException exception) {
@@ -103,7 +101,6 @@ public class UserDao {
 		User user = new User();
 
 		try {
-			System.out.println("inside dao");
 			transaction = session.beginTransaction();
 			String hql = " FROM User u WHERE u.emailAddress = :emailId";
 			Query query = session.createQuery(hql);
@@ -117,7 +114,6 @@ public class UserDao {
 				System.out.println("User exisits for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
 			}
-			System.out.println(user);
 		} catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();
