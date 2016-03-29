@@ -45,7 +45,6 @@ public class PackagesDao {
 			System.out.println("Package saved in DB");	
 			
 			transaction.commit();
-			System.out.println("New Package insert is committed");
 		
 		} catch (HibernateException exception) {
 			if (transaction != null)
@@ -100,6 +99,8 @@ public class PackagesDao {
 			int pid = 0;
 			try {
 				transaction = session.beginTransaction();
+				System.out.println("pckgName");
+				System.out.println(pckgName);
 				String hql = " SELECT p.p_Id FROM Packages p WHERE p.p_Name = :pkgName";
 				Query query = session.createQuery(hql);
 				query.setParameter("pkgName", pckgName);
@@ -122,7 +123,7 @@ public class PackagesDao {
 
 		}
 		
-		public static int deletePid(int pid){
+		public static int deletePid(int p_id){
 			
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
@@ -131,7 +132,7 @@ public class PackagesDao {
 			try{
 				transaction = session.beginTransaction();
 				Query query = session.createQuery("delete Packages where p_id = :pid");
-				query.setParameter("pid", pid);
+				query.setParameter("pid", p_id);
 				del = query.executeUpdate();
 				transaction.commit();
 			}catch(HibernateException exception){
@@ -176,7 +177,99 @@ public class PackagesDao {
 			return pckg;
 		}
 
+		public static List<String> getAllPckgNames(String excludePkgName){
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+
+			List<String> pckgNamesList = new ArrayList<String>();
+			
+			try {
+				transaction = session.beginTransaction();
+				Query query = session.createQuery("SELECT p.p_Name FROM Packages p WHERE p.p_Name NOT IN (:pkgName) ");
+				query.setParameter("pkgName", excludePkgName);
+				pckgNamesList = query.list();
+
+				if (pckgNamesList.isEmpty()) {
+					System.out.println("No Packages retrieved from Package table.");
+					pckgNamesList = null;
+				} else {
+					System.out.println("Packages Names other than " +excludePkgName);
+				}
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+
+			return pckgNamesList;
+
+		}
+		public static List<Packages> getAllPcgks(){
+
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            Transaction transaction = null;
+            
+            List<Packages> pcksList = new ArrayList<>();
+            try {
+                transaction = session.beginTransaction();
+                Query query = session.createQuery("FROM Packages p ");
+                 pcksList = query.list();
+
+                if (pcksList.isEmpty()) {
+                    System.out.println("No Packages retrieved from Package table.");
+                    pcksList = null;
+                } else {
+                    System.out.println(pcksList.size());
+                    
+                }
+            } catch (HibernateException exception) {
+                if (transaction != null)
+                    transaction.rollback();
+                exception.printStackTrace();
+            } finally {
+                session.close();
+            }
+
+            return pcksList;
+
+                
+            
+        }
+
 		
+		public static int updatePkgDetails(String curpkgNm,String pkNm, double pkprice, String pkDesc){
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			//Packages upquery = new Packages();
+			int rowUpdated = 0 ;
+			
+			try {
+				transaction = session.beginTransaction();
+				Query updatequery = session.createQuery("update Packages SET p_Name = :pkgNm, p_Price = :pkgprice, p_Description = :pkgDesc where p_Name = :curpkgNm" );
+				updatequery.setParameter("pkgNm", pkNm);
+				updatequery.setParameter("curpkgNm",curpkgNm);
+				updatequery.setParameter("pkgprice", pkprice);
+				updatequery.setParameter("pkgDesc", pkDesc);
+				
+				rowUpdated = updatequery.executeUpdate();
+				transaction.commit();
+			}catch(HibernateException exception){
+					if(transaction!=null)
+						transaction.rollback();
+					exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+			
+			
+			 return rowUpdated;
+			
+		}
 	}
 		
 

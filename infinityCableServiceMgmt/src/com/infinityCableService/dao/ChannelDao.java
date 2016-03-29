@@ -54,7 +54,8 @@ public class ChannelDao {
 		return names;
 
 	}
-
+		
+	
 	// get channel ids
 	public static List<Integer> getChannelIds(String[] channelList) {
 

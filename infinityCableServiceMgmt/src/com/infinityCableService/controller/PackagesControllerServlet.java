@@ -109,6 +109,7 @@ public class PackagesControllerServlet extends HttpServlet {
 				Packages pkgObj = new Packages();
 				pkgObj = PackagesDao.getPkgDetails(pckgToEdit);
 				session.setAttribute("pckgObj", pkgObj);
+				session.setAttribute("currPckgName", pkgObj.getp_Name());
 				List<String> chnlsOfPckg = Package_ChannelDao.getPckgChanlList(pkgObj.getp_Id());
 				request.setAttribute("chnlsOfPckg", chnlsOfPckg);
 				List<String> allChnList = ChannelDao.getAllChannels();
@@ -119,7 +120,47 @@ public class PackagesControllerServlet extends HttpServlet {
 				break;
 				
 			case "updatePackageDetails":
-				
+				//check for package name update
+				String currPkgName = (String) session.getAttribute("currPckgName");
+				String pkgNameRecieved = request.getParameter("packageName");
+				boolean pkgNameExisits = false;
+				if(!currPkgName.equalsIgnoreCase(pkgNameRecieved)){
+					List<String> pckNamesList = PackagesDao.getAllPckgNames(currPkgName);
+					for(String pkName : pckNamesList){
+						pkgNameExisits = pkgNameRecieved.equalsIgnoreCase(pkName);
+						if(pkgNameExisits){
+							request.setAttribute("msg", "***Package Name Already exists.Please enter a different name***");
+							url = "/adminHomePage.jsp";
+							break;
+						}
+						else {
+							//update the package details
+							//String pkg_Name = request.getParameter("packageName");
+							double pkPrice = Double.parseDouble(request.getParameter("price"));
+							String pkDesc  = request.getParameter("pckgDesc");
+							
+							String[] addChannels = request.getParameterValues("allChnl");
+							String[] deleteChannels = request.getParameterValues("existingChnl");
+
+							//get add and delete channel ids
+								List<Integer> addchnlIds = ChannelDao.getChannelIds(addChannels);
+								List<Integer> delchnlIds = ChannelDao.getChannelIds(deleteChannels);	
+								
+								// update description, name and price
+								int rowsUpdated = PackagesDao.updatePkgDetails(currPkgName,pkgNameRecieved,pkPrice,pkDesc); 
+							
+								//get package id
+								int pk_id = PackagesDao.getPid(pkgNameRecieved);
+								//update add channels
+								int updateRowsInserted = Package_ChannelDao.createPckgChnl(pk_id, addchnlIds);
+								// update remove channels
+								int updateRowsDeleted = Package_ChannelDao.deleteCid(delchnlIds,pk_id);
+								
+								url = "/adminHomePage.jsp";
+							
+						}
+					}
+				}
 				
 			}
 

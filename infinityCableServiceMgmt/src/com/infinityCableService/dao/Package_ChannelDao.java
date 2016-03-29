@@ -57,7 +57,7 @@ public class Package_ChannelDao {
 		int del=0;
 		try{
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("delete Package_Channel where p_id = :pid");
+			Query query = session.createQuery("delete Package_Channel where p_Id = :pid");
 			query.setParameter("pid", pid);
 			del = query.executeUpdate();
 			transaction.commit();
@@ -71,6 +71,36 @@ public class Package_ChannelDao {
 		return del;
 			
 		}
+	
+
+	//delete channel ids
+
+		public static int deleteCid(List<Integer> cid,int pid ){
+			
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			int del=0;
+			try{
+				transaction = session.beginTransaction();
+				for (Integer chnlId : cid) {
+					Query query = session.createQuery("delete from Package_Channel PC where PC.c_Id = :cid and PC.p_Id = :pid");
+					query.setParameter("pid", pid);
+					query.setParameter("cid", chnlId);
+					del = query.executeUpdate();
+					}
+				
+				transaction.commit();
+			}catch(HibernateException exception){
+					if(transaction!=null)
+						transaction.rollback();
+					exception.printStackTrace();
+			}finally{
+					session.close();
+			}
+			return del;
+				
+			}
 	
 	public static List<String> getPckgChanlList(int pid){
 		

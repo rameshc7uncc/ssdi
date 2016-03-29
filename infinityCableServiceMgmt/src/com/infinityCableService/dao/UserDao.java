@@ -12,8 +12,9 @@ import com.infinityCableService.dbUtil.HibernateUtil;
 import com.infinityCableService.model.User;
 
 public class UserDao {
+	
 	public static void main(String[] arg) {
-
+		
 	}
 	//method for inserting a user record in User table
 	public static Long createUser(String firstName, String lastName, String emailId, long phoneNumber, String address1,
@@ -111,7 +112,7 @@ public class UserDao {
 				System.out.println("There is no User registered with email address = " + emailAddress);
 				user = null;
 			} else {
-				System.out.println("User exisits for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
+				System.out.println("User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
 			}
 		} catch (HibernateException exception) {
@@ -124,5 +125,27 @@ public class UserDao {
 
 		return user;
 
+	}
+	
+	public static int resetPaswd(String newPaswrd, String email){
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		int updatedRow = 0;
+		try{
+			transaction = session.beginTransaction();
+			String hql = " UPDATE User u SET u.password = :paswd WHERE u.emailAddress = :emailId";
+			Query query = session.createQuery(hql);
+			query.setParameter("emailId", email);
+			query.setParameter("paswd", newPaswrd);
+			updatedRow = query.executeUpdate();
+		}catch (HibernateException exception) {
+			if (transaction != null)
+				transaction.rollback();
+			exception.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return  updatedRow;
 	}
 }

@@ -2,17 +2,21 @@ package com.infinityCableService.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.infinityCableService.dao.PackagesDao;
 import com.infinityCableService.dao.UserDao;
+import com.infinityCableService.model.Packages;
 import com.infinityCableService.model.User;
 
+import util.SendEmail;
+//import com.infinityCableService.util.SendEmail;
 /**
  * Servlet implementation class UserControllerServlet
  */
@@ -60,7 +64,7 @@ public class UserControllerServlet extends HttpServlet {
 				User existingUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
 				if (existingUser != null) {
 					if (email.equals(existingUser.getEmailAddress())) {
-						System.out.println("inside login inside get email address");
+						
 						if (existingUser.getRoleId().equalsIgnoreCase("CUSTOMER")) {
 							System.out.println("***User is CUSTOMER.***");
 							session.setAttribute("theUser", existingUser);
@@ -116,15 +120,36 @@ public class UserControllerServlet extends HttpServlet {
 				// check if user exists in DB
 				User validUser = UserDao.verifyUserBasedOnEmail(email);
 				if (validUser != null) {
+					String newPassword = "qazwsxedc12324";
 					// update DB with default password
+					int rowUpdate = UserDao.resetPaswd(email, newPassword);
+					
 					// send email to the user with reset password
-					// display msg in forgotPassword page that password has been
-					// sent to email
+					try {
+						SendEmail.sendemail(newPassword, email);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					request.setAttribute("msg", "An email has been sent. Please login using the new password ");
+					
+					url = "/forgotPasswordPage.jsp";
+					
 				} else if (validUser == null) {
 					request.setAttribute("msg", "Invalid Email Address");
 					url = "/forgotPasswordPage.jsp";
 				}
 				break;
+				
+			case "guestUser":
+				
+				List<Packages> pckgsList = PackagesDao.getAllPcgks();
+								
+				request.setAttribute("pkgObgList", pckgsList);
+				
+				url= "/guestUserPage.jsp";
+				break;
+			
 			}
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
