@@ -77,7 +77,7 @@ Released   : 20120624
 		
 			
 			<li class="second">
-				<a href="index.html">Logout</a>
+				<a href="UserControllerServlet?action=logout">Logout</a>
 				</li>
 			
 			

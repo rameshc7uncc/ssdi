@@ -46,7 +46,9 @@ Released   : 20120624
 				<a href="index.html">Home</a>
 				</li>
 			
-			
+			<li class="second">
+				<a href="UserControllerServlet?action=logout">Logout</a>
+				</li>
 			
 			
 			
@@ -54,13 +56,29 @@ Released   : 20120624
 		<br class="clearfix" />
 	</div>
 <br></br>
-<br></br>
-<br></br>
-<br></br>
 
 <div style="padding:30px;">
-<h2>This is Customer Home Page</h2>
-<h2>Welcome !!</h2>
+<p>This is Customer Home Page, Welcome !!</p>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+	        <input type="hidden" name="action" value="myProfile"></input>
+			<input type="submit" class="button button3" value=" My Profile    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="viewPackage"></input>
+			<input type="submit"  class="button button3" value=" View Package    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="viewBill"></input>
+			<input type="button"  class="button button3" value=" View Bill    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="help"></input>
+			<input type="button"  class="button button3" value=" Help    "  ></input>
+	</form>
 </div>
 <br></br>
 <br></br>
@@ -68,13 +86,7 @@ Released   : 20120624
 <br></br>
 <br></br>
 <br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
+
 
 <div id="page-bottom">
 		

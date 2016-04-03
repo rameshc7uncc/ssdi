@@ -139,6 +139,7 @@ public class UserDao {
 			query.setParameter("emailId", email);
 			query.setParameter("paswd", newPaswrd);
 			updatedRow = query.executeUpdate();
+			transaction.commit();
 		}catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();

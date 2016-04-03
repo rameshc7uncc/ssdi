@@ -14,8 +14,7 @@ import com.infinityCableService.dao.PackagesDao;
 import com.infinityCableService.dao.UserDao;
 import com.infinityCableService.model.Packages;
 import com.infinityCableService.model.User;
-
-import util.SendEmail;
+import com.infinityCableService.util.SendEmail;
 //import com.infinityCableService.util.SendEmail;
 /**
  * Servlet implementation class UserControllerServlet
@@ -126,12 +125,12 @@ public class UserControllerServlet extends HttpServlet {
 					
 					// send email to the user with reset password
 					try {
-						SendEmail.sendemail(newPassword, email);
+						SendEmail.sendemail(email, newPassword);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					
-					request.setAttribute("msg", "An email has been sent. Please login using the new password ");
+					request.setAttribute("msg", "An email has been sent. Please login using your new password ");
 					
 					url = "/forgotPasswordPage.jsp";
 					
@@ -150,6 +149,11 @@ public class UserControllerServlet extends HttpServlet {
 				url= "/guestUserPage.jsp";
 				break;
 			
+			case "logout":
+				session.invalidate();
+                url = "/index.html";
+                break;
+                
 			}
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);

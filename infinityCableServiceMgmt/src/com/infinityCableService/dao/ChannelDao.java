@@ -15,10 +15,11 @@ import com.infinityCableService.dbUtil.HibernateUtil;
 import com.infinityCableService.model.Channel;
 
 public class ChannelDao {
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 		List<String> channelList = new ArrayList<String>();
-		channelList = getAllChannels();
-	}
+		channelList = getAllAddChannelsForPid(10);
+		System.out.println(channelList.size());
+	}*/
 
 	// getting all channels from channel table
 	public static List<String> getAllChannels() {
@@ -94,5 +95,42 @@ public class ChannelDao {
 		return channelIdsList;
 
 	}
+	
+	//getting channel list for add channels - edit package page
+		public static List<String> getAllAddChannelsForPid(int pid) {
+
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+
+			List<String> names = new ArrayList<String>();
+
+			try {
+				transaction = session.beginTransaction();
+				Query query = session.createQuery("SELECT c.c_Name FROM Channel c WHERE c.c_Id NOT IN (SELECT pc.c_Id FROM Package_Channel pc WHERE pc.p_Id = :pid)");
+				query.setParameter("pid", pid);
+				names = query.list();
+
+				if (names.isEmpty()) {
+					System.out.println("No Channels retrieved from Channel table.");
+					names = null;
+				} else {
+					for (String n : names) {
+						System.out.println(n);
+					}
+					System.out.println("No.of Channels retrieved from DB:  " + names.size());
+				}
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+
+			return names;
+
+		}
+
 
 }

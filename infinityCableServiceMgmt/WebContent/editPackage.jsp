@@ -77,6 +77,10 @@ Released   : 20120624
 			
 			<li><a href="#">About Us</a></li>
 			<li class="last"><a href="#">Contact Us</a></li>
+			
+			<li class="second">
+				<a href="UserControllerServlet?action=logout">Logout</a>
+				</li>
 		</ul>
 		<br class="clearfix" />
 	</div>
