@@ -9,6 +9,7 @@ Description: A two-column, fixed-width design with a bright color scheme.
 Version    : 1.0
 Released   : 20120624
 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="description" content="" />
@@ -58,7 +59,17 @@ Released   : 20120624
 <br></br>
 
 <div style="padding:30px;">
-<p>This is Customer Home Page, Welcome !!</p>
+<center>
+<p>Welcome ${theUser.getFirstName()} !!</p>
+<p> ${subscriptionMsg}</p> 
+<c:if test="${isSubscribed == true}" >
+	<p> If you want to switch to any other package, please unsubscribe from the current subscription by clicking below</p>
+	<form action="CustomerControllerServlet" method="post">
+	<input type="hidden" name="action" value="unsubscribe"></input>
+	<input type="submit"  class="button button3" value=" UnSubscribe    "  ></input>
+	</form>
+</c:if>
+</center>
 	&nbsp
 	<form action="CustomerControllerServlet" method="post">
 	        <input type="hidden" name="action" value="myProfile"></input>

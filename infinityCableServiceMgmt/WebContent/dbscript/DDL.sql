@@ -73,3 +73,12 @@ drop table if exists package_channel;
              foreign key (c_id)
 				references channel(c_id)
              );
+ -- create customer subscription table
+CREATE TABLE customer_subscription 
+			(row_id     INT  AUTO_INCREMENT PRIMARY KEY, 
+			 user_id	INT NOT NULL,
+			 p_id       INT NOT NULL,
+             start_date datetime,
+             end_date   datetime DEFAULT NULL);
+             
+      

@@ -4,63 +4,64 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
+
 	<class name="com.infinityCableService.model.User" table="User">
-	<id name="userId" type="long" column="USER_ID">
-         
-         <generator class="increment" />
-                  
-      </id>
-      <property name="firstName" column="FIRST_NAME" type="string" />
-      <property name="lastName" column="LAST_NAME" type="string"/>
-      <property name="emailAddress" column="EMAIL_ADDRESS" type="string"  />
-      <property name="phoneNumber" column="PHONE_NUMBER" type="long"  />
-      <property name="address1"  column="ADDRESS1" type="string"  />
-      <property name="address2"  column="ADDRESS2" type="string"  />
-      <property name="city" column="CITY" type="string"  />
-      <property name="state" column="STATE" type="string"  />
-      <property name="pinCode" column="PINCODE" type="int"  />
-      <property name="password" column="PASSWORD" type ="string" />
-      <property name="roleId" column="ROLE_ID" type ="string" />
-       <property name="status" column="STATUS" type ="string" />
-       <property name="userCreateDate" column="USER_CREATE_DATE" type="string"  />
-                     
+		<id name="userId" type="long" column="USER_ID">
+			<generator class="increment" />
+		</id>
+		<property name="firstName" column="FIRST_NAME" type="string" />
+		<property name="lastName" column="LAST_NAME" type="string"/>
+		<property name="emailAddress" column="EMAIL_ADDRESS" type="string"  />
+		<property name="phoneNumber" column="PHONE_NUMBER" type="long"  />
+		<property name="address1"  column="ADDRESS1" type="string"  />
+		<property name="address2"  column="ADDRESS2" type="string"  />
+		<property name="city" column="CITY" type="string"  />
+		<property name="state" column="STATE" type="string"  />
+		<property name="pinCode" column="PINCODE" type="int"  />
+		<property name="password" column="PASSWORD" type ="string" />
+		<property name="roleId" column="ROLE_ID" type ="string" />
+		<property name="status" column="STATUS" type ="string" />
+		<property name="userCreateDate" column="USER_CREATE_DATE" type="string"  />
 	</class>
 	
 	<class name="com.infinityCableService.model.Packages" table="Package">
-	<id name="p_Id" type="int" column="P_ID">
-         
-         <generator class="increment" />
-                  
-      </id>
-      <property name="p_Name" column="P_NAME" type="string" />
-      <property name="p_Description" column="P_DESCRIPTION" type="string"/>
-      <property name="p_Price" column="P_PRICE" type="double"  />
-      <property name="p_Status" column="P_STATUS" type="string"  />
-      <property name="p_CreatedDate"  column="P_CREATED_DATE" type="string"  />
-      <property name="p_DeletedDate"  column="P_DELETED_DATE" type="string"  />
-                  
+		<id name="p_Id" type="int" column="P_ID">
+        	<generator class="increment" />
+      	</id>
+      	<property name="p_Name" column="P_NAME" type="string" />
+		<property name="p_Description" column="P_DESCRIPTION" type="string"/>
+		<property name="p_Price" column="P_PRICE" type="double"  />
+		<property name="p_Status" column="P_STATUS" type="string"  />
+		<property name="p_CreatedDate"  column="P_CREATED_DATE" type="string"  />
+		<property name="p_DeletedDate"  column="P_DELETED_DATE" type="string"  />
 	</class>
 	
 	<class name="com.infinityCableService.model.Channel" table="Channel">
-	<id name="c_Id" type="int" column="C_ID">
-         
+		<id name="c_Id" type="int" column="C_ID">
          <generator class="increment" />
-                  
-      </id>
-      <property name="c_Name" column="C_NAME" type="string" />
-      <property name="c_Price" column="C_PRICE" type="double"  />
-      <property name="c_Status" column="C_STATUS" type="string"  />
-      <property name="c_HD"  column="C_HD" type="string"  />
-                  
+		</id>
+		<property name="c_Name" column="C_NAME" type="string" />
+		<property name="c_Price" column="C_PRICE" type="double"  />
+		<property name="c_Status" column="C_STATUS" type="string"  />
+		<property name="c_HD"  column="C_HD" type="string"  />
 	</class>
 	
 	<class name="com.infinityCableService.model.Package_Channel" table="Package_Channel">
+		<id name="row_id" type="int" column="ROW_ID"> 
+		 	<generator class="increment" />
+		</id>
+		<property name="p_Id" type="int" column="P_ID"> </property>  
+		<property name="c_Id" type="int" column="C_ID"> </property>                 
+	</class>
 	
-	<id name="row_id" type="int" column="ROW_ID"> 
-	 <generator class="increment" />
-	</id>
-	<property name="p_Id" type="int" column="P_ID"> </property>  
-	<property name="c_Id" type="int" column="C_ID"> </property>                 
+	<class name="com.infinityCableService.model.Customer_Subscription" table="Customer_Subscription">
+		<id name="row_Id" type="int" column="ROW_ID"> 
+		 	<generator class="increment" />
+		</id>
+		<property name="user_Id" type="long" column="USER_ID"> </property>  
+		<property name="p_Id" type="int" column="P_ID"> </property>  
+		<property name="start_Date"  column="START_DATE" type="string"  />
+	    <property name="end_Date"  column="END_DATE" type="string"  />
 	</class>
 	
 </hibernate-mapping>

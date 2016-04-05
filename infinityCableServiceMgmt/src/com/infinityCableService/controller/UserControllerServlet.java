@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.infinityCableService.dao.Customer_SubscriptionDao;
 import com.infinityCableService.dao.PackagesDao;
 import com.infinityCableService.dao.UserDao;
+import com.infinityCableService.model.Customer_Subscription;
 import com.infinityCableService.model.Packages;
 import com.infinityCableService.model.User;
 import com.infinityCableService.util.SendEmail;
@@ -67,6 +69,23 @@ public class UserControllerServlet extends HttpServlet {
 						if (existingUser.getRoleId().equalsIgnoreCase("CUSTOMER")) {
 							System.out.println("***User is CUSTOMER.***");
 							session.setAttribute("theUser", existingUser);
+							//check the customer has subscribed to packages
+							Customer_Subscription cusSubptn = new Customer_Subscription();
+							cusSubptn = Customer_SubscriptionDao.getCustomerSubscptnDetails(existingUser.getUserId());
+							if(cusSubptn != null){
+								if(cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() == null){
+									String pckName = PackagesDao.getPckgName(cusSubptn.getP_Id());
+									session.setAttribute("currPckgSubscrptn", pckName);
+									session.setAttribute("isSubscribed", true);
+									session.setAttribute("subscriptionMsg", "*** Currently you have subscribed to "+pckName+" Package. ***");	
+								}else if(cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() != null){
+									cusSubptn = null;
+								}
+							}else if(cusSubptn == null){
+								System.out.println(" ** Customer has not subscribed to any package");
+								session.setAttribute("subscriptionMsg", "*** Currently you have not subscribed any Package. Please click on 'View Package' to subscribe one. ***");
+								session.setAttribute("isSubscribed", false);
+							}
 							url = "/customerHomePage.jsp";
 						} else if (existingUser.getRoleId().equalsIgnoreCase("ADMIN")) {
 							System.out.println("***User is ADMIN.***");
@@ -76,7 +95,7 @@ public class UserControllerServlet extends HttpServlet {
 					}
 				} else if (existingUser == null) {
 					System.out.println("***User does not exists.***");
-					request.setAttribute("msg", "User not registerd");
+					request.setAttribute("msg", "*** User not registerd. ***");
 					url = "/loginPage.jsp";
 				}
 

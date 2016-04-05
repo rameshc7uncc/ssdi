@@ -270,6 +270,37 @@ public class PackagesDao {
 			 return rowUpdated;
 			
 		}
+		
+		public static String getPckgName (int pid){
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			String pName = "";
+			try {
+				transaction = session.beginTransaction();
+				String hql = " SELECT p.p_Name FROM Packages p WHERE p.p_Id = :pid";
+				Query query = session.createQuery(hql);
+				query.setParameter("pid", pid);
+				List<String> resultList = query.list();
+				if (resultList.isEmpty()) {
+					System.out.println("No package name exists for the package id: " + pid);
+				} else {
+					pName = resultList.get(0);
+					System.out.println("Package Name : " +pName);
+				}
+
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return pName;
+
+
+			
+		}
 	}
 		
 
