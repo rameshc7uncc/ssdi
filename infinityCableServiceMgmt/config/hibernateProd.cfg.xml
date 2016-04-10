@@ -11,7 +11,7 @@
 	<!--  <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property> -->
 	<property name="hibernate.hbm2ddl.auto">update</property>
 
-	<mapping resource="infinityCableService.hbm.xml" />
+	<mapping resource="infinityCableServiceProd.hbm.xml" />
 	<mapping class="com.infinityCableService.model.User" />
 
 </session-factory>
