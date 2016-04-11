@@ -134,7 +134,32 @@ public class UserDaoTest {
 			session.close();
 		}
 	}
-
+	@Test
+	public final void testUpdateUser(){
+		SessionFactory sessionFactory = HibernateUtilTest.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		int rowAffected = 0;
+		User userToUpdat;
+		User currUser;
+		try {
+			userToUpdat = UserDao.getUserBasedOnEmailAndPswd("jenny@yahoo.com", "1234_abcde");
+			userToUpdat.setPassword("Pa$$w@rd");
+			userToUpdat.setAddress1("123 Some new Drive");
+			 rowAffected = UserDao.updateUser(userToUpdat);
+			 currUser =UserDao.getUserBasedOnEmailAndPswd("jenny@yahoo.com", "Pa$$w@rd");
+			 assertEquals("Pa$$w@rd", currUser.getPassword());
+			 assertEquals("123 Some new Drive", currUser.getAddress1());
+			 //assertEquals(1, rowAffected);
+		} catch (HibernateException exception) {
+			if (transaction != null)
+				transaction.rollback();
+			exception.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
 	public void clearUserTable(){
 		SessionFactory sessionFactory = HibernateUtilTest.getSessionFactory();
 		Session session = sessionFactory.openSession();

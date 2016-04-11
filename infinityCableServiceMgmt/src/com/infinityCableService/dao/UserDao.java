@@ -12,11 +12,12 @@ import com.infinityCableService.dbUtil.HibernateUtil;
 import com.infinityCableService.model.User;
 
 public class UserDao {
-	
+
 	public static void main(String[] arg) {
-		
+
 	}
-	//method for inserting a user record in User table
+
+	// method for inserting a user record in User table
 	public static Long createUser(String firstName, String lastName, String emailId, long phoneNumber, String address1,
 			String address2, String city, String state, int pinCode, String password, String roleId, String status,
 			String userCreateDate) {
@@ -58,7 +59,7 @@ public class UserDao {
 		return userId;
 	}
 
-	//method for login validation of user using email address and password.
+	// method for login validation of user using email address and password.
 	public static User getUserBasedOnEmailAndPswd(String emailAddress, String password) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -78,10 +79,11 @@ public class UserDao {
 				System.out.println("There is no User registered with email address = " + emailAddress);
 				user = null;
 			} else {
-				System.out.println("User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
+				System.out.println(
+						"User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
 			}
-			
+
 		} catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();
@@ -92,9 +94,9 @@ public class UserDao {
 
 		return user;
 	}
-	
-	public static User verifyUserBasedOnEmail(String emailAddress){
-		
+
+	public static User verifyUserBasedOnEmail(String emailAddress) {
+
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = null;
@@ -112,7 +114,8 @@ public class UserDao {
 				System.out.println("There is no User registered with email address = " + emailAddress);
 				user = null;
 			} else {
-				System.out.println("User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
+				System.out.println(
+						"User exists for emailAddress: " + emailAddress + " First Name: " + user.getFirstName());
 				user = resultList.get(0);
 			}
 		} catch (HibernateException exception) {
@@ -126,13 +129,13 @@ public class UserDao {
 		return user;
 
 	}
-	
-	public static int resetPaswd(String newPaswrd, String email){
+
+	public static int resetPaswd(String newPaswrd, String email) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = null;
 		int updatedRow = 0;
-		try{
+		try {
 			transaction = session.beginTransaction();
 			String hql = " UPDATE User u SET u.password = :paswd WHERE u.emailAddress = :emailId";
 			Query query = session.createQuery(hql);
@@ -140,13 +143,52 @@ public class UserDao {
 			query.setParameter("paswd", newPaswrd);
 			updatedRow = query.executeUpdate();
 			transaction.commit();
-		}catch (HibernateException exception) {
+		} catch (HibernateException exception) {
 			if (transaction != null)
 				transaction.rollback();
 			exception.printStackTrace();
 		} finally {
 			session.close();
 		}
-		return  updatedRow;
+		return updatedRow;
+	}
+
+	public static int updateUser(User user) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		int updatedRow = 0;
+		User tempUser = new User();
+		try {
+			transaction = session.beginTransaction();
+			Query q = session.createQuery("from User where userId = :userId ");
+			q.setParameter("userId", user.getUserId());
+			List<User> tempUserList = q.list();
+			if (tempUserList != null) {
+				tempUser = tempUserList.get(0);
+				tempUser.setFirstName(user.getFirstName());
+				tempUser.setLastName(user.getLastName());
+				tempUser.setEmailAddress(user.getEmailAddress());
+				tempUser.setPhoneNumber(user.getPhoneNumber());
+				tempUser.setAddress1(user.getAddress1());
+				tempUser.setAddress2(user.getAddress2());
+				tempUser.setCity(user.getCity());
+				tempUser.setState(user.getState());
+				tempUser.setPinCode(user.getPinCode());
+				tempUser.setPassword(user.getPassword());
+				// tempUser.setUserId(userCurrObj.getUserId());
+
+				session.update(tempUser);
+			}
+
+			transaction.commit();
+		} catch (HibernateException exception) {
+			if (transaction != null)
+				transaction.rollback();
+			exception.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return updatedRow;
 	}
 }

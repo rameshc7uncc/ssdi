@@ -5,7 +5,7 @@
 
 <hibernate-mapping>
 
-	<class name="com.infinityCableService.model.User" table="User">
+	<class name="com.infinityCableService.model.User" table="User" dynamic-update="true">
 		<id name="userId" type="long" column="USER_ID">
 			<generator class="increment" />
 		</id>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.infinityCableService.dao.Customer_SubscriptionDao;
 import com.infinityCableService.dao.PackagesDao;
+import com.infinityCableService.dao.UserDao;
 import com.infinityCableService.model.Customer_Subscription;
 import com.infinityCableService.model.Packages;
 import com.infinityCableService.model.User;
@@ -52,7 +53,29 @@ public class CustomerControllerServlet extends HttpServlet {
 		} else {
 			switch (action) {
 			case "myProfile":
+				url= "/updateProfile.jsp";
+				break;
 				
+			case "updateDetails":
+				User userCurrObj = (User) session.getAttribute("theUser");
+				User updateUser = new User();
+				updateUser.setFirstName(request.getParameter("firstName"));
+				updateUser.setLastName(request.getParameter("lastName"));
+				updateUser.setEmailAddress(request.getParameter("email"));
+				updateUser.setPhoneNumber(Long.parseLong(request.getParameter("phoneNumber")));
+				updateUser.setAddress1(request.getParameter("address1"));
+				updateUser.setAddress2(request.getParameter("address2"));
+				updateUser.setCity(request.getParameter("city"));
+				updateUser.setState(request.getParameter("state"));
+				updateUser.setPinCode(Integer.parseInt(request.getParameter("zipcode")));
+				updateUser.setPassword(request.getParameter("password"));
+				updateUser.setUserId(userCurrObj.getUserId());
+				
+				int rowUpdted = UserDao.updateUser(updateUser);
+				User updatedUser = UserDao.getUserBasedOnEmailAndPswd(updateUser.getEmailAddress(),updateUser.getPassword());
+				session.setAttribute("theUser", updatedUser);
+				session.setAttribute("msg", "Your details have been successfully updated.");
+				url= "/updateProfile.jsp";
 				break;
 			
 			case "viewPackage":
