@@ -14,7 +14,7 @@ Released   : 20120624
 <head>
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<title>Big Business 2.0 by TEMPLATED</title>
+<title>Infinity</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <!-- - --<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -30,12 +30,47 @@ Released   : 20120624
 		
 	});
 </script><!--->
+<style>
+.button {
+    background-color: #778899;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
+}
+</style>
+
 </head>
+
 <body>
+
+
+ 
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1>Infinity Cable</h1>
+			<h1>Infinity Cable Services</h1>
 		</div>
 		<div id="slogan">
 			
@@ -44,10 +79,10 @@ Released   : 20120624
 	<div id="menu">
 		<ul>
 			<li class="first">
-				<a href="index.html">Home</a>
+				<a href="customerHomePage.jsp">Home</a>
 				</li>
 			
-			<li class="second">
+			<li style="float:right" class="second">
 				<a href="UserControllerServlet?action=logout">Logout</a>
 				</li>
 			
@@ -56,21 +91,12 @@ Released   : 20120624
 		</ul>
 		<br class="clearfix" />
 	</div>
-<br></br>
 
-<div style="padding:30px;">
-<center>
-<p>Welcome ${theUser.getFirstName()} !!</p>
-<p> ${subscriptionMsg}</p> 
-<c:if test="${isSubscribed == true}" >
-	<p> If you want to switch to any other package, please unsubscribe from the current subscription by clicking below</p>
-	<form action="CustomerControllerServlet" method="post">
-	<input type="hidden" name="action" value="unsubscribe"></input>
-	<input type="submit"  class="button button3" value=" UnSubscribe    "  ></input>
-	</form>
-</c:if>
-</center>
-	&nbsp
+
+
+	
+	
+<div id="nav">
 	<form action="CustomerControllerServlet" method="post">
 	        <input type="hidden" name="action" value="myProfile"></input>
 			<input type="submit" class="button button3" value=" My Profile    "  ></input>
@@ -83,21 +109,48 @@ Released   : 20120624
 	&nbsp
 	<form action="CustomerControllerServlet" method="post">
 			<input type="hidden" name="action" value="viewBill"></input>
-			<input type="button"  class="button button3" value=" View Bill    "  ></input>
+			<input type="submit"  class="button button3" value=" View Bill    "  ></input>
 	</form>
 	&nbsp
 	<form action="CustomerControllerServlet" method="post">
 			<input type="hidden" name="action" value="help"></input>
-			<input type="button"  class="button button3" value=" Help    "  ></input>
+			<input type="submit"  class="button button3" value=" Help    "  ></input>
 	</form>
-</div>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
+	</div>
+	<div id="section">
 
+<center><p><h2>Welcome ${theUser.getFirstName()} !!</h2></p></center>
+<p><h4>${subscriptionMsg}<h4></p> 
+<c:if test="${isSubscribed == true}" >
+	 <p>If you want to switch to any other package, please unsubscribe from the current subscription by clicking below</p>
+	<form action="CustomerControllerServlet" method="post">
+	<input type="hidden" name="action" value="unsubscribe"></input>
+	<input type="submit"  class="button button3" value=" UnSubscribe    "  ></input>
+	</form>
+</c:if>
+
+
+
+</div>
+
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
 
 <div id="page-bottom">
 		

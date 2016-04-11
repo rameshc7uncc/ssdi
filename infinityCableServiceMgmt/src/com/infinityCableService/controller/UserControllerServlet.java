@@ -124,6 +124,9 @@ public class UserControllerServlet extends HttpServlet {
 						Long userIDofCust = UserDao.createUser(fName, lName, email, phoneNo, address1, address2, city,
 								state, zipcode, password, "CUSTOMER", "ACTIVE", userCreateDate);
 						System.out.println("User Successfully registerd. User ID: " + userIDofCust);
+						User newUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
+						session.setAttribute("theUser", newUser);
+						setAttributesForCustHomePg(newUser, session);
 						url = "/customerHomePage.jsp";
 					} // else return to signup page
 					else {
@@ -177,5 +180,24 @@ public class UserControllerServlet extends HttpServlet {
 		}
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
-
+	public static void setAttributesForCustHomePg (User userinfo, HttpSession session){
+		Customer_Subscription cusSubptn = new Customer_Subscription();
+		cusSubptn = Customer_SubscriptionDao.getCustomerSubscptnDetails(userinfo.getUserId());
+		if(cusSubptn != null){
+			if(cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() == null){
+				String pckName = PackagesDao.getPckgName(cusSubptn.getP_Id());
+				//boolean subscribed = true;
+				session.setAttribute("isSubscribed", true);
+				session.setAttribute("subscriptionMsg", "*** Currently you have subscribed to "+pckName+" Package. ***");
+				session.setAttribute("currPckgSubscrptn",pckName);
+			}else if(cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() != null){
+				cusSubptn = null;
+			}
+		}else if(cusSubptn == null){
+			System.out.println(" ** Customer has not subscribed to any package");
+			session.setAttribute("subscriptionMsg", "*** Currently you have not subscribed any Package. Please click on 'View Package' to subscribe one. ***");
+			session.setAttribute("isSubscribed", false);
+			
+		}
+	}
 }

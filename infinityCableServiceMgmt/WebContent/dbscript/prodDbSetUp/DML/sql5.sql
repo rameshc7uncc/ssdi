@@ -152,35 +152,35 @@ values ('Star Movies HD',10,'Active','Y');
 
 -- insert mockup data to package_channel table(standard)
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 2,C.c_id from channel C inner join standard S
 on C.c_name = S.c_name;
 
 -- insert mockup data to package_channel table(standard)
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 3,C.c_id from channel C inner join sports S
 on C.c_name = S.c_name;
 
 -- insert mockup data to package_channel table(music)
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 4,C.c_id from channel C inner join Music M 
 on C.c_name = M.c_name;
 
 -- insert mockup data to package_channel table(premium)
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 1,C.c_id from channel C inner join Music M
 on C.c_name = M.c_name
 limit 2;
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 1,C.c_id from channel C inner join Sports S
 on C.c_name = S.c_name
 limit 4;
 
-insert into package_channel
+insert into package_channel(p_id,c_id)
 select 1,C.c_id from channel C inner join Standard S
 on C.c_name = S.c_name
 limit 10;

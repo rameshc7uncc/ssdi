@@ -16,8 +16,8 @@ Released   : 20120624
 <title>Infinity Cable Service</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-<link rel="stylesheet" href="CommonStyle.css" type="text/css">
-<link type="text/css" rel="stylesheet" href="menuStyle.css" media="screen" />
+
+
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.dropotron-1.0.js"></script>
@@ -39,12 +39,43 @@ Released   : 20120624
 		});
 	});
 </script>  -->
+<style>
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+.button {
+    background-color: #778899;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.buttons {
+    background-color: #778899;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+</style>
 </head>
 <body>
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1>Infinity Cable</h1>
+			<h1>Infinity Cable Services</h1>
 		</div>
 		<div id="slogan">
 			
@@ -53,31 +84,42 @@ Released   : 20120624
 	<div id="menu">
 		<ul>
 			<li class="first">
-				<a href="loginPage.jsp">My Account</a>
+				<a href="index.html">Home</a>
 				</li>
-			</li>
-			<li><a href="loginPage.jsp">Pay Bill</a></li>
 			
-			<li><a href="#">About Us</a></li>
+			
+			
+			
 			
 		</ul>
 		<br class="clearfix" />
 	</div>
+	<br></br>
 	<div id="login">
+     <center>
+     <table>
 		<form name="loginform" id="loginform" action="UserControllerServlet" method="post">
 			<input type="hidden" name="action" value="login">
-			<p>
-				<label for="email">Email<br>
-				<input name="email" id="email" class="input" size="20" tabindex="10" type="text"></label>
-			</p>
-			<p>
-				<input name="password" id="password" class="input" value="" size="20" tabindex="20" type="password"></label>
-			</p>
+			
+				<tr><th><label for="email">Email<br></th>
+				<th><input name="email" id="email" class="input" size="20" tabindex="10" type="text"></label></th></tr>
+				<tr>&nbsp;</tr>
+				<tr>&nbsp;</tr>
+				<tr>&nbsp;</tr>
+		         <tr>&nbsp;</tr>
+		         <tr>&nbsp;</tr>
+		         <tr>&nbsp;</tr>
+		         <tr>&nbsp;</tr>
+			
+			<tr><th><label for="password">Password<br></th>
+				<th><input name="password" id="password" class="input" value="" size="20" tabindex="20" type="password"></label></th></tr>
+			
 			<p class="submit">
-				<input name="submit" id="submit" class="button-primary" value="Log In" tabindex="100" type="submit">
+			<tr><th>&nbsp;</th>
+				<th><input name="submit" id="submit" class="buttons button3" value="Log In" tabindex="100" type="submit"></th></tr>
 			</p>
 			
-		</form>
+		</form></center></table>
 		<center>
 		<p style="">
 			<% if(null != request.getAttribute("errorMsg")){
@@ -87,17 +129,18 @@ Released   : 20120624
 		</p>
 		  </center> 
 		
-		
+	<center>	
     <p> <a href="forgotPasswordPage.jsp" >Forgot Password? </a></p>
     <p> New Customer? Please <a href="signup.jsp" >Sign Up </a></p>
     <form name="loginform" id="loginform" action="UserControllerServlet" method="post">
 		<input type="hidden" name="action" value="guestUser">
     <p class="submit">
-				<input name="submit" id="submit" class="button-primary" value="Continue as Guest" tabindex="100" type="submit">
+				<input name="submit" id="submit" class="buttons button3" value="Continue as Guest" tabindex="100" type="submit">
 			</p>
     </form>
      </div>
 	<p>${msg}</p>
+	</center>
 	<br></br>
 	<br></br>
 	<br></br>

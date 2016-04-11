@@ -56,7 +56,7 @@ if(null == message){
 <head>
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<title>Big Business 2.0 by TEMPLATED</title>
+<title>Infinity</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <link rel="stylesheet" href="CommonStyle.css" type="text/css">
@@ -71,7 +71,7 @@ if(null == message){
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1>Infinity Cable</h1>
+			<h1>Infinity Cable Services</h1>
 		</div>
 		<div id="slogan">
 			
@@ -80,17 +80,13 @@ if(null == message){
 	<div id="menu">
 		<ul>
 			<li class="first">
-				<a href="loginPage.jsp">My Account</a>
+				<a href="index.html">Home</a>
 				</li>
 			</li>
-			<li><a href="loginPage.jsp">Pay Bill</a></li>
 			
-			<li>
-				<a href="#">Email</a>
-				
-			</li>
-			<li><a href="#">About Us</a></li>
-			<li class="last"><a href="#">Contact Us</a></li>
+			
+			
+			
 		</ul>
 		<br class="clearfix" />
 	</div>

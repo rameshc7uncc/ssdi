@@ -1,6 +1,7 @@
 package com.infinityCableService.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.infinityCableService.dao.Customer_SubscriptionDao;
 import com.infinityCableService.dao.PackagesDao;
 import com.infinityCableService.dao.UserDao;
+import com.infinityCableService.dao.UserFeedbackDao;
 import com.infinityCableService.model.Customer_Subscription;
 import com.infinityCableService.model.Packages;
 import com.infinityCableService.model.User;
@@ -74,7 +76,7 @@ public class CustomerControllerServlet extends HttpServlet {
 				int rowUpdted = UserDao.updateUser(updateUser);
 				User updatedUser = UserDao.getUserBasedOnEmailAndPswd(updateUser.getEmailAddress(),updateUser.getPassword());
 				session.setAttribute("theUser", updatedUser);
-				session.setAttribute("msg", "Your details have been successfully updated.");
+				session.setAttribute("updateSuccessMsg", "Your details have been successfully updated.");
 				url= "/updateProfile.jsp";
 				break;
 			
@@ -130,6 +132,22 @@ public class CustomerControllerServlet extends HttpServlet {
 				break;
 				
 			case "help":
+				//User userDetails1 = (User) session.getAttribute("theUser");
+				//setAttributesForCustHomePg(userDetails1, session);
+				url = "/helpDesk.jsp";
+				break;
+				
+			case "isQuery" :
+				
+				String type = request.getParameter("querytype");
+				User userDetails2 = (User) session.getAttribute("theUser");
+				 
+				java.util.Date date = new java.util.Date();
+				String feedbackCreateDate = new Timestamp(date.getTime()).toString();
+				
+				UserFeedbackDao.createFeedback(userDetails2.getUserId(), type, "Open", feedbackCreateDate, "NULL");
+				request.setAttribute("type", type);
+				url ="/message.jsp";
 				
 				break;
 	

@@ -1,8 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!--
 Design by TEMPLATED
 http://templated.co
@@ -13,6 +9,7 @@ Description: A two-column, fixed-width design with a bright color scheme.
 Version    : 1.0
 Released   : 20120624
 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="description" content="" />
@@ -38,7 +35,7 @@ Released   : 20120624
     background-color: #778899;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -47,22 +44,31 @@ Released   : 20120624
     cursor: pointer;
 }
 .button3 {border-radius: 8px;}
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
 }
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-table#t01 {
-    width: 100%;    
-    background-color: #f1f1c1;
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
 }
 </style>
+
 </head>
+
 <body>
+<%-- <%
+	String type=request.getParameter("type");
+%> --%>
+
+ 
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
@@ -75,52 +81,77 @@ table#t01 {
 	<div id="menu">
 		<ul>
 			<li class="first">
-				<a href="index.html">Home</a>
+				<a href="customerHomePage.jsp">Home</a>
 				</li>
 			
-			
+			<li style="float:right" class="second">
+				<a href="UserControllerServlet?action=logout">Logout</a>
+				</li>
 			
 			
 			
 		</ul>
 		<br class="clearfix" />
 	</div>
-	<br></br>
-	<br></br>
-	<br></br>
-<center>
-<div style="padding:30px;">
-<h2></>Available Package Details</h2>
 
-<table style="width:80%">
-        <tr>
-            <th>Package Name</th>
-            <th>Package Description</th>     
-            <th>Price</th>
-        </tr>
-        <c:forEach var="pgObj" items="${pkgObgList}" >
-        <tr>
-            <td>${pgObj.p_Name}</td>
-            <td>${pgObj.p_Description} </td>
-            <td>${pgObj.p_Price} </td>
-        </c:forEach>
-    </table>
-    <br></br>
-	<p> <a href = "loginPage.jsp" class="button button3">  Login </a></p>
-	</div>
-	</center>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
-	<br></br>
+
+
 	
-	<div id="page-bottom">
+	
+<div id="nav">
+	<form action="CustomerControllerServlet" method="post">
+	        <input type="hidden" name="action" value="myProfile"></input>
+			<input type="submit" class="button button3" value=" My Profile    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="viewPackage"></input>
+			<input type="submit"  class="button button3" value=" View Package    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="viewBill"></input>
+			<input type="button"  class="button button3" value=" View Bill    "  ></input>
+	</form>
+	&nbsp
+	<form action="CustomerControllerServlet" method="post">
+			<input type="hidden" name="action" value="help"></input>
+			<input type="submit"  class="button button3" value=" Help    "  ></input>
+	</form>
+	</div>
+<div id="section" width:350px; float:left; padding:10px;>
+
+<c:choose>
+<c:when test="${type == feedback}">
+
+<h4>Thanks for your feedback !!! </h4>
+</c:when>
+<c:otherwise>
+<h4>Your ${type} successfully created !!!</h4>
+</c:otherwise>
+</c:choose>
+</div>
+
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+
+<div id="page-bottom">
 		
 			
 			<p>
@@ -136,4 +167,3 @@ table#t01 {
 </div>
 </body>
 </html>
-

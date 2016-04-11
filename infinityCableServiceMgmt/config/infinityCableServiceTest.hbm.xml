@@ -63,5 +63,15 @@
 		<property name="start_Date"  column="START_DATE" type="string"  />
 	    <property name="end_Date"  column="END_DATE" type="string"  />
 	</class>
+	<class name="com.infinityCableService.model.UserFeedback" table="customer_feedback">
+		<id name="row_Id" column="ROW_ID" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="u_Id" column="USER_ID" type="long" />
+		<property name="q_type" column="QUERY_TYPE" type="string" />
+		<property name="q_status" column="QUERY_STATUS" type="string" />
+		<property name="start_Date" column="START_DATE" type="string" />
+		<property name="end_Date" column="END_DATE" type="string" />
+	</class>
 	
 </hibernate-mapping>

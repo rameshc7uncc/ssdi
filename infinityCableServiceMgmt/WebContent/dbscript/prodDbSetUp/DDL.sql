@@ -81,4 +81,10 @@ CREATE TABLE customer_subscription
              start_date datetime,
              end_date   datetime DEFAULT NULL);
              
-      
+CREATE TABLE customer_feedback 
+			(row_id     INT  AUTO_INCREMENT PRIMARY KEY, 
+			 user_id	INT NOT NULL,
+			 query_type     VARCHAR(100) NOT NULL,
+			 query_status enum ('Open','Inprogress','Resolved') not null,
+			 start_date datetime,
+             end_date   datetime DEFAULT NULL);

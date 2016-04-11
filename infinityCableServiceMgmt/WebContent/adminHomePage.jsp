@@ -14,7 +14,7 @@ Released   : 20120624
 <head>
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<title>Big Business 2.0 by TEMPLATED</title>
+<title>Infinity</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <!-- - --<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -60,7 +60,7 @@ Released   : 20120624
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1>Infinity Cable</h1>
+			<h1>Infinity Cable Services</h1>
 		</div>
 		<div id="slogan">
 			
@@ -69,10 +69,10 @@ Released   : 20120624
 	<div id="menu">
 		<ul>
 			<li class="first">
-				<a href="index.html">Home</a>
+				<a href="adminHomePage.jsp">Home</a>
 				</li>
 				
-			<li class="second">
+			<li style="float:right" class="last">
 				<a href="UserControllerServlet?action=logout">Logout</a>
 				</li>
 		

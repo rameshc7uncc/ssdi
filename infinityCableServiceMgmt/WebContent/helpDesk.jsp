@@ -31,10 +31,6 @@ Released   : 20120624
 	});
 </script><!--->
 <style>
-th, td {
-    padding: 10px;
-    text-align: left;
-}
 .button {
     background-color: #778899;
     border: none;
@@ -70,7 +66,7 @@ th, td {
     padding-left:20px;	      
 }
 #section {
-    width:350px;
+    width:650px;
     float:left;
     padding-top:40px;
     padding-left:90px;	 	 
@@ -108,8 +104,11 @@ th, td {
 		<br class="clearfix" />
 	</div>
 
-<div id="nav">
 
+
+	
+	
+<div id="nav">
 	<form action="CustomerControllerServlet" method="post">
 	        <input type="hidden" name="action" value="myProfile"></input>
 			<input type="submit" class="button button3" value=" My Profile    "  ></input>
@@ -129,34 +128,31 @@ th, td {
 			<input type="hidden" name="action" value="help"></input>
 			<input type="button"  class="button button3" value=" Help    "  ></input>
 	</form>
-	
 	</div>
-<div id="section"><center>
-<h3>Enter your payment details</h3>
-<table>
-	<form  action="CustomerControllerServlet" method="post">
-		<input type="hidden" name="action" value="payToAddPackage">
-		<tr><th><label >Name on the Card: </label></th>
-       <th> <input type="text" name="name" required/> </th></tr>
-        <tr><th><label >Card Type (Visa/MasterCard): </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >Card Number: </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >CVV: </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >Valid Until (mm/yy): </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th>&nbsp;</th>
-        <th><input type="submit" class="buttons button3" value="Pay"  ></th></tr>
-        <br>
+<div id="section">
+<form action="CustomerControllerServlet" method="post">
+<input type="hidden" name="action" value="isQuery"></input>
+	<h2>Welcome to Helpdesk!!!</h2>
+    <p>Please enter your query below.</p>
+    
+    <select  name= "querytype">
+					<option value="" disabled selected>Select Type</option>
+					<option value="query" data-class="flag-france">Query</option>
+					<option value="complaint" data-class="flag-brazil">Complaint</option>
+					<option value="feedback" data-class="flag-argentina">Feedback</option>
+					
+	</select><br></br>
+    <input class="easyui-textbox" data-options="multiline:true" style="width:300px;height:100px">
+    <br><br>
+   
+	<input type="submit" class="buttons button3" value="Submit">
 	</form>
-	</table>
-</center>
+
+
 </div>
+
+
+<br></br>
 <br></br>
 <br></br>
 <br></br>
@@ -188,6 +184,5 @@ th, td {
 <div id="footer">
 	&copy; Untitled. All rights reserved. Design by <a href="http://templated.co" rel="nofollow">INFINITY</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.
 </div>
-
 </body>
 </html>
