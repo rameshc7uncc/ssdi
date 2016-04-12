@@ -93,3 +93,14 @@ CREATE TABLE customer_feedback
 			 query_status enum ('Open','Inprogress','Resolved') not null,
 			 start_date datetime,
              end_date   datetime DEFAULT NULL);
+             
+             
+create table payment
+			(row_id int primary key,
+			user_id long,
+			billing_date datetime,
+			bill_amount double,
+			payment_date datetime default null,
+			payment_status enum ('Paid','Unpaid') default 'Unpaid'
+			);
+

@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import com.infinityCableService.dao.Customer_SubscriptionDao;
 import com.infinityCableService.dao.PackagesDao;
+import com.infinityCableService.dao.PaymentDao;
 import com.infinityCableService.dao.UserDao;
 import com.infinityCableService.dao.UserFeedbackDao;
 import com.infinityCableService.model.Customer_Subscription;
 import com.infinityCableService.model.Packages;
+import com.infinityCableService.model.Payment;
 import com.infinityCableService.model.User;
 
 /**
@@ -91,6 +92,7 @@ public class CustomerControllerServlet extends HttpServlet {
 				String pckgToAdd = request.getParameter("pckgNameSelected");
 				Customer_Subscription cusSubptn = new Customer_Subscription();
 				cusSubptn = Customer_SubscriptionDao.getCustomerSubscptnDetails(user.getUserId());
+				session.setAttribute("isPayBill", false);
 				if(cusSubptn != null){
 						if(cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() == null){
 							//session.setAttribute("errorMsg", "!!! Kindly unsubscribe from current subscription in order to process new subscription. !!!");
@@ -99,6 +101,7 @@ public class CustomerControllerServlet extends HttpServlet {
 						}else if (cusSubptn.getStart_Date() != null && cusSubptn.getEnd_Date() != null){
 							
 						session.setAttribute("pckgToBuy", pckgToAdd);
+						session.setAttribute("isPayBill", false);
 						url = "/paymentDetailsPage.jsp";
 						}
 				}else{
@@ -107,13 +110,19 @@ public class CustomerControllerServlet extends HttpServlet {
 				}
 				break;
 			
-			case "payToAddPackage":
-				// insert record into customer subscription
+			case "pay":
 				User userinfo = (User) session.getAttribute("theUser");
+				if((boolean) session.getAttribute("isPayBill")){
+					PaymentDao.updatePaymentDetails(userinfo.getUserId());
+				}else{
+				// insert record into customer subscription
 				String pckgName = (String) session.getAttribute("pckgToBuy");
 				int pckgID = PackagesDao.getPid(pckgName);
 				Customer_SubscriptionDao.createCusSubscription(userinfo.getUserId(), pckgID);
+				double pckgP = PackagesDao.getPrice(pckgName);
+				PaymentDao.insertPayment(userinfo.getUserId(), pckgP);
 				setAttributesForCustHomePg(userinfo, session);
+				}
 				url = "/customerHomePage.jsp";
 				break;
 				
@@ -128,7 +137,15 @@ public class CustomerControllerServlet extends HttpServlet {
 				break;
 			
 			case "viewBill":
+				User bUser = (User) session.getAttribute("theUser");
+				Payment viewBill = PaymentDao.getBillDetails(bUser.getUserId());
+				request.setAttribute("vBill", viewBill);
+				session.setAttribute("isPayBill", true);
+				url= "/viewBill.jsp";
+				break;
 				
+			case "payBill":
+				url = "/paymentDetailsPage.jsp";
 				break;
 				
 			case "help":

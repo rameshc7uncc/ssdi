@@ -1,4 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!--
 Design by TEMPLATED
 http://templated.co
@@ -9,7 +13,6 @@ Description: A two-column, fixed-width design with a bright color scheme.
 Version    : 1.0
 Released   : 20120624
 -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="description" content="" />
@@ -31,10 +34,6 @@ Released   : 20120624
 	});
 </script><!--->
 <style>
-th, td {
-    padding: 10px;
-    text-align: left;
-}
 .button {
     background-color: #778899;
     border: none;
@@ -73,16 +72,24 @@ th, td {
     width:350px;
     float:left;
     padding-top:40px;
-    padding-left:90px;	 	 
+    padding-left:40px;	 	 
 }
+
+table {
+    border-collapse: collapse;
+}
+
+ table,td, th {
+   border: 1px solid black;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
 </style>
-
 </head>
-
 <body>
-
-
- 
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
@@ -98,18 +105,18 @@ th, td {
 				<a href="customerHomePage.jsp">Home</a>
 				</li>
 			
+			
+			
+			
+			
 			<li style="float:right" class="second">
-				<a href="UserControllerServlet?action=logout">Logout</a>
+				<a href="index.html">Logout</a>
 				</li>
-			
-			
 			
 		</ul>
 		<br class="clearfix" />
 	</div>
-
-<div id="nav">
-
+	<div id="nav">
 	<form action="CustomerControllerServlet" method="post">
 	        <input type="hidden" name="action" value="myProfile"></input>
 			<input type="submit" class="button button3" value=" My Profile    "  ></input>
@@ -129,34 +136,31 @@ th, td {
 			<input type="hidden" name="action" value="help"></input>
 			<input type="button"  class="button button3" value=" Help    "  ></input>
 	</form>
+	</div>
+
+<div id="section">
+<center>
+	<table>
+	<tr><th>Billing Date</th>
+	<th>Amount</th>
+	<th>Payment Status</th></tr>
+	<tr>
+	<td>${vBill.getbilling_Date()}</td>
+	<td>${vBill.getbill_Amount()} </td>
+	 <td>${vBill.getpayment_Status()}</td>
+	 </tr>
+	 </table>
+	 </center>
+	 <c:if test ="${vBill.getpayment_Status() == 'Unpaid'}" >
+        <form action="CustomerControllerServlet" method="post">
+       	<input type="hidden" name="action" value="payBill" />
+        <input float="right" type="submit" class="buttons button3" value="Pay"  >
+        </form> 
+      </c:if>
 	
 	</div>
-<div id="section"><center>
-<h3>Enter your payment details</h3>
-<table>
-	<form  action="CustomerControllerServlet" method="post">
-		<input type="hidden" name="action" value="pay">
-		<tr><th><label >Name on the Card: </label></th>
-       <th> <input type="text" name="name" required/> </th></tr>
-        <tr><th><label >Card Type (Visa/MasterCard): </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >Card Number: </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >CVV: </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th><label >Valid Until (mm/yy): </label></th>
-        <th><input type="text" name="cardNumber" required/></th></tr>
-        
-        <tr><th>&nbsp;</th>
-        <th><input type="submit" class="buttons button3" value="Pay"  ></th></tr>
-        <br>
-	</form>
-	</table>
-</center>
-</div>
+
+	<br></br>
 <br></br>
 <br></br>
 <br></br>

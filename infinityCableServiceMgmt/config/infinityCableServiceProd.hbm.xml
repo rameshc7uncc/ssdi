@@ -75,4 +75,15 @@
 		<property name="end_Date" column="END_DATE" type="string" />
 	</class>
 	
+	<class name="com.infinityCableService.model.Payment" table="payment">
+		<id name="row_Id" column="ROW_ID" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="user_Id" column="USER_ID" type="long" />
+		<property name="billing_Date" column="billing_date" type="string" />
+		<property name="bill_Amount" column="bill_amount" type="double" />
+		<property name="payment_Date" column="payment_date" type="string" />
+		<property name="payment_Status" column="payment_status" type="string" />
+	</class>
+	
 </hibernate-mapping>

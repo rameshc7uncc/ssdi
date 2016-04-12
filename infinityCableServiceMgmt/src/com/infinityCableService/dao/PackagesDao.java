@@ -301,6 +301,36 @@ public class PackagesDao {
 
 			
 		}
+		
+		public static double getPrice(String pckgName){
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			double price = 0;
+			try {
+				transaction = session.beginTransaction();
+				System.out.println(pckgName);
+				String hql = " SELECT p.p_Price FROM Packages p WHERE p.p_Name = :pkgName";
+				Query query = session.createQuery(hql);
+				query.setParameter("pkgName", pckgName);
+				List<Double> resultList = query.list();
+				if (resultList.isEmpty()) {
+					System.out.println("No package id exists for the package name: " + pckgName);
+				} else {
+					price = resultList.get(0);
+					System.out.println("Package price : " +price);
+				}
+
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return price;
+
+		}
 	}
 		
 
