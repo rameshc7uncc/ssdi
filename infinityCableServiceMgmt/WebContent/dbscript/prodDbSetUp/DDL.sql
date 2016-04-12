@@ -81,6 +81,11 @@ CREATE TABLE customer_subscription
              start_date datetime,
              end_date   datetime DEFAULT NULL);
              
+             
+-- drop table if exists
+drop table if exists customer_feedback;             
+ -- create  customer_feedback table
+              
 CREATE TABLE customer_feedback 
 			(row_id     INT  AUTO_INCREMENT PRIMARY KEY, 
 			 user_id	INT NOT NULL,
