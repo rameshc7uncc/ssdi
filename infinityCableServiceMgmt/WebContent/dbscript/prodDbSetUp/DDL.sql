@@ -40,7 +40,7 @@ CREATE TABLE package
              p_description	VARCHAR(250)    	NOT NULL,
              p_price double NOT NULL,
              p_status enum ('Active','Inactive') not null,
-             p_created_date datetime default now();,
+             p_created_date datetime default now(),
              p_deleted_date datetime default null
              );
              

@@ -122,7 +122,7 @@ public class UserControllerServlet extends HttpServlet {
 						System.out.println("Password and Confirm password values are same");
 						// create the user
 						Long userIDofCust = UserDao.createUser(fName, lName, email, phoneNo, address1, address2, city,
-								state, zipcode, password, "CUSTOMER", "ACTIVE", userCreateDate);
+								state, zipcode, password, "CUSTOMER", "A", userCreateDate);
 						System.out.println("User Successfully registerd. User ID: " + userIDofCust);
 						User newUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
 						session.setAttribute("theUser", newUser);

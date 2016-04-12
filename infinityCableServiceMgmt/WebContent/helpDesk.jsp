@@ -121,12 +121,12 @@ Released   : 20120624
 	&nbsp
 	<form action="CustomerControllerServlet" method="post">
 			<input type="hidden" name="action" value="viewBill"></input>
-			<input type="button"  class="button button3" value=" View Bill    "  ></input>
+			<input type="submit"  class="button button3" value=" View Bill    "  ></input>
 	</form>
 	&nbsp
 	<form action="CustomerControllerServlet" method="post">
 			<input type="hidden" name="action" value="help"></input>
-			<input type="button"  class="button button3" value=" Help    "  ></input>
+			<input type="submit"  class="button button3" value=" Help    "  ></input>
 	</form>
 	</div>
 <div id="section">
