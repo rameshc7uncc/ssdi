@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -172,7 +173,9 @@ public class CustomerControllerServlet extends HttpServlet {
 			}
 			
 		}
-		getServletContext().getRequestDispatcher(url).forward(request, response);
+		RequestDispatcher rd=request.getRequestDispatcher(url);  
+		rd.forward(request, response);
+		//getServletContext().getRequestDispatcher(url).forward(request, response);
 	
 	}
 	

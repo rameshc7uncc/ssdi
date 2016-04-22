@@ -1,12 +1,15 @@
 package com.infinityCableService.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.infinityCableService.dao.ChannelDao;
 import com.infinityCableService.dao.Package_ChannelDao;
 import com.infinityCableService.dao.PackagesDao;
+import com.infinityCableService.dao.UserDao;
 import com.infinityCableService.model.Packages;
 
 /**
@@ -157,17 +161,69 @@ public class PackagesControllerServlet extends HttpServlet {
 									int updateRowsDeleted = Package_ChannelDao.deleteCid(delchnlIds,pk_id);
 									
 									url = "/adminHomePage.jsp";
+									break;
+									
 								
 							}
 						}
+						break;
+						
 					}
-				
+			
+				case "reports":
+					url="/reports.jsp";
+					break;
+					
+				case "reportReq":
+					String startDate = getFormattedDateStringd(request.getParameter("txtFromDate"))+" 00:00:00";
+					System.out.println(startDate);
+					String endDate  = getFormattedDateStringd(request.getParameter("txtToDate"))+" 23:59:59";
+					System.out.println(endDate);
+					String reportType = request.getParameter("reportType");
+					
+					
+					if(reportType.equals("totalSales")){
+						// query total sales
+						
+					}else if(reportType.equals("salesPerPackg")){
+						//query for sales per pckg
+						
+					}else if(reportType.equals("totalRegCount")){
+						Map<String, Integer> resultMap = new HashMap<String, Integer>();
+						resultMap = UserDao.getRegCount(startDate, endDate);
+						for(String key :resultMap.keySet()){
+							System.out.println(key+","+resultMap.get(key) );
+						}
+						session.setAttribute("dataMap", resultMap);
+						
+						
+					}
+					request.setAttribute("reportType", reportType);
+					System.out.println(request.getAttribute("reportType"));
+					url = "/reportsView.jsp";
+					break;
 			}
 
 		}
-		getServletContext().getRequestDispatcher(url).forward(request, response);
+		RequestDispatcher rd=request.getRequestDispatcher(url);  
+		rd.forward(request, response);
+		//getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
+	public String getFormattedDateStringd(String dateString){
+		Date date;
+		String dateString2 ="";
+		try {
+			date = new SimpleDateFormat("MM/dd/yyyy").parse(dateString);
+			 dateString2 = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(dateString2); // 2011-04-16
+		return dateString2;
+	}
 }
 
 

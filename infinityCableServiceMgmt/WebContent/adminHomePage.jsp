@@ -102,7 +102,7 @@ Released   : 20120624
 &nbsp
 <form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="reports"></input>
-		<input type="button" class="button button3" value="    Reports           "  ></input> 
+		<input type="submit" class="button button3" value="    Reports           "  ></input> 
 </form>
 </div>
         <br></br>
