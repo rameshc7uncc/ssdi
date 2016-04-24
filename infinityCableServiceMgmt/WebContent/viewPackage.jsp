@@ -151,7 +151,7 @@ Released   : 20120624
         <tr>
             <td><font size="4px">${pgObj.p_Name}</font></td>
             <td>${pgObj.p_Description} </td>
-            <td>${pgObj.p_Price} </td>
+            <td>$${pgObj.p_Price} </td>
             <td> <form action="CustomerControllerServlet" method="post">
        			 <input type="hidden" name="action" value="addPackageToUser" />
        			 <input type="hidden" name="pckgNameSelected" value="${pgObj.p_Name}" />

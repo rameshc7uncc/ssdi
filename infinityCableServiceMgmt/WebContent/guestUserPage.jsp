@@ -102,7 +102,7 @@ table#t01 {
         <tr>
             <td>${pgObj.p_Name}</td>
             <td>${pgObj.p_Description} </td>
-            <td>${pgObj.p_Price} </td>
+            <td>$${pgObj.p_Price} </td>
         </c:forEach>
     </table>
     <br></br>

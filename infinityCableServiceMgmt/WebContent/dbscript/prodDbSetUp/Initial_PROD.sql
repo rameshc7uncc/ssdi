@@ -76,19 +76,19 @@ CREATE TABLE package
 -- insert initial mock up data to package table
 
 insert into package ( p_name ,p_description	,p_price ,p_status ,p_created_date ,p_deleted_date )
-values ('starter','Includes 20 plus channels','30','Active',now(),null);
+values ('Starter','Includes 20 plus channels','30','Active',now(),null);
 
 insert into package ( p_name ,p_description	,p_price ,p_status ,p_created_date ,p_deleted_date )
-values ('standard','Includes 70 plus channels','60','Active',now(),null);
+values ('Standard','Includes 70 plus channels','60','Active',now(),null);
 
 insert into package ( p_name ,p_description	,p_price ,p_status ,p_created_date ,p_deleted_date )
-values ('preferred','Includes 130 plus channels ','90','Active',now(),null);
+values ('Preferred','Includes 130 plus channels ','90','Active',now(),null);
 
 insert into package ( p_name ,p_description	,p_price ,p_status ,p_created_date ,p_deleted_date )
-values ('Custom 1','Includes Starter channels plus additonal few standard channels','45','Active',now(),null);
+values ('Custom 1','Includes Starter channels plus additonal few Standard channels','45','Active',now(),null);
 
 insert into package ( p_name ,p_description	,p_price ,p_status ,p_created_date ,p_deleted_date )
-values ('Custom 2','Includes Standard channels plus additonal few preferred channels','75','Active',now(),null);
+values ('Custom 2','Includes Standard channels plus additonal few Preferred channels','75','Active',now(),null);
 
 
 -- drop table if exists

@@ -202,7 +202,7 @@ public class UserDao {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			String hql = " SELECT COUNT(u.userId) FROM User u WHERE u.roleId = 'Customer' AND u.status = 'A' AND  (u.userCreateDate BETWEEN :startDt AND :endDt)";
+			String hql = " SELECT COUNT(u.userId) FROM User u WHERE u.roleId = 'Customer' AND u.status = 'Active' AND  (u.userCreateDate BETWEEN :startDt AND :endDt)";
 			Query query = session.createQuery(hql);
 			query.setParameter("startDt", startDate);
 			query.setParameter("endDt", endDate);
@@ -212,7 +212,7 @@ public class UserDao {
 			//transaction.commit();
 			resultMap.put("Active", ActiveCount);
 			
-			String hql2 = " SELECT COUNT(u.userId) FROM User u WHERE u.roleId = 'Customer' AND u.status = 'I' AND  (u.userCreateDate BETWEEN :startDt AND :endDt)";
+			String hql2 = " SELECT COUNT(u.userId) FROM User u WHERE u.roleId = 'Customer' AND u.status = 'Inactive' AND  (u.userCreateDate BETWEEN :startDt AND :endDt)";
 			Query query2 = session.createQuery(hql2);
 			query2.setParameter("startDt", startDate);
 			query2.setParameter("endDt", endDate);
