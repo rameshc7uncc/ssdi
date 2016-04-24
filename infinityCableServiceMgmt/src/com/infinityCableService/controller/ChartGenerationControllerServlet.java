@@ -1,9 +1,12 @@
 package com.infinityCableService.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,6 +57,26 @@ public class ChartGenerationControllerServlet extends HttpServlet {
                     int height = 450;
                     ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
                     break;
+                    
+                case "downloadChnlListing":
+    				ServletContext sc = getServletContext();
+    				String path = sc.getRealPath("");
+    				String filename ="Channel Listing.pdf";
+    				
+    				response.setContentType("application/octet-stream");
+    				response.setHeader("content-disposition", "attachment; filename="+filename);
+    				
+    				FileInputStream in = new FileInputStream(path+"/"+filename);
+    				PrintWriter out = response.getWriter();
+    				
+    				int i=in.read();
+    				while(i != -1){
+    					out.write(i);
+    					i = in.read();    					
+    				}
+    				in.close();
+    				out.close();
+    				break;
             }
         }
 
