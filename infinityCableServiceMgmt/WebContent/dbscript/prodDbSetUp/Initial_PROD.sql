@@ -107,6 +107,9 @@ drop table if exists channel;
 insert into channel (c_name)
 select channel from preferred;
 
+-- To remove trailing spaces
+UPDATE channel set c_name = TRIM(Replace(Replace(Replace(c_name,'\t',''),'\n',''),'\r',''));
+
 -- drop table if exists
 drop table if exists package_channel;
              

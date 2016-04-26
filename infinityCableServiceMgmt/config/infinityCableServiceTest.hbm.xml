@@ -84,4 +84,12 @@
 		<property name="payment_Status" column="payment_status" type="string" />
 	</class>
 	
+	<class name="com.infinityCableService.model.Custom_Package" table="custom_package">
+		<id name="row_Id" column="ROW_ID" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="user_Id" column="USER_ID" type="int"/>
+		<property name="p_Id" column="P_ID" type="int" />
+		<property name="c_Id" column="C_ID" type="int" />
+	</class>
 </hibernate-mapping>

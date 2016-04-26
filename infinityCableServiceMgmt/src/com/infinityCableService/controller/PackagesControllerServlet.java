@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.infinityCableService.dao.ChannelDao;
+import com.infinityCableService.dao.Custom_PackageDao;
 import com.infinityCableService.dao.Package_ChannelDao;
 import com.infinityCableService.dao.PackagesDao;
 import com.infinityCableService.dao.UserDao;
 import com.infinityCableService.model.Packages;
+import com.infinityCableService.model.User;
 
 /**
  * Servlet implementation class PackagesControllerServlet
@@ -47,7 +49,7 @@ public class PackagesControllerServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "null" })
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "";
 		HttpSession session = request.getSession();
@@ -121,6 +123,28 @@ public class PackagesControllerServlet extends HttpServlet {
 					request.setAttribute("allChnList", allChnList);
 					
 					url = "/editPackage.jsp";
+					break;
+					
+				case "customPackage" :
+					
+					User userDetails = (User) session.getAttribute("theUser");
+					
+					// selected standard channels
+					String[] customChannels = (String[]) request.getParameterValues("customChnl");
+					
+					// selected standard channels
+
+					List<String> preChannels = (List<String>) session.getAttribute("preChnl");
+					System.out.println("preChannels");
+					System.out.println(preChannels);
+				//<Integer> customChnlIds = ChannelDao.getChannelIds(preChannels.toArray(new String[0]));
+					List<Integer> customChnlIds = (ChannelDao.getChannelIds(customChannels));
+					
+					//update add channels
+					int cu_pk_id = PackagesDao.getPid((String) session.getAttribute("customPckgToAdd"));
+					int customchnlrowsupdated = Custom_PackageDao.createCustomPckgChnl((int) userDetails.getUserId(),cu_pk_id, customChnlIds);
+					request.setAttribute("msg", "***Package Created Successfully***");
+					url = "/paymentDetailsPage.jsp";
 					break;
 					
 				case "updatePackageDetails":
