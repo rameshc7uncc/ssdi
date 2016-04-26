@@ -1,14 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
 
-Name       : Big Business 2.0
-Description: A two-column, fixed-width design with a bright color scheme.
-Version    : 1.0
-Released   : 20120624
--->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -20,26 +11,7 @@ Released   : 20120624
 <title>Infinity</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="jquery.dropotron-1.0.js"></script>
-<script type="text/javascript" src="jquery.slidertron-1.1.js"></script>  -->
-<!-- <script type="text/javascript">
-	$(function() {
-		$('#menu > ul').dropotron({
-			mode: 'fade',
-			globalOffsetY: 11,
-			offsetY: -15
-		});
-		$('#slider').slidertron({
-			viewerSelector: '.viewer',
-			indicatorSelector: '.indicator span',
-			reelSelector: '.reel',
-			slidesSelector: '.slide',
-			speed: 'slow',
-			advanceDelay: 4000
-		});
-	});
-</script>  -->
+
 <style>
 .button {
     background-color: #778899;
@@ -53,7 +25,35 @@ Released   : 20120624
     margin: 4px 2px;
     cursor: pointer;
 }
-.button3 {border-radius: 8px;}
+.buttons {
+    background-color: #778899;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
+}
 </style>
 
 </head>
@@ -84,40 +84,77 @@ Released   : 20120624
 		</ul>
 		<br class="clearfix" />
 	</div>
-	<br></br>
+	<div id="nav">
+
+
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="addNewPackage"></input>
+		<input type="submit" class="button button3" value="Add Package      "  ></input>
+        
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+		<input type="hidden" name="action" value="updatePackage"></input>
+		<input type="submit"  class="button button3" value="Update Package"  ></input>
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="reports"></input>
+		<input type="submit" class="button button3" value="Reports"  ></input> 
+</form>
+</div>
 	<center>
-	<div style="padding:30px;">
+	<div id="section">
 <h2>Edit a Package</h2>
+<table>
 <form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="updatePackageDetails" />
-            <label><font size="4px">Package Name *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="packageName" value="${pckgObj.p_Name}" required/> <br><br>
-            <label><font size="4px">Description *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="pckgDesc"  value="${pckgObj.p_Description}" required/> <br><br>
-            <label><font size="4px">Price *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="price"  value="${pckgObj.p_Price}" required/> <br><br>
-            <br>
-            <label><font size="4px">Existing Channels *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select name="existingChnl"  multiple="multiple">
+            <tr><th><td align="left"><label><font size="4px">Package Name *</font></label></td></th>
+            <th><input type="text" name="packageName" value="${pckgObj.p_Name}" required/></th></tr>
+            <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Description *</font></label></td></th>
+            <th><input type="text" name="pckgDesc"  value="${pckgObj.p_Description}" required/></th></tr>
+            <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Price *</font></label></td></th>
+            <th><input type="text" name="price"  value="${pckgObj.p_Price}" required/></th></tr>
+            <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Existing Channels *</font></label></td></th>
+            <th><select name="existingChnl"  multiple="multiple">
             <c:forEach var="chnl" items="${chnlsOfPckg}" >
             <option value="${chnl}">${chnl}</option>>
             </c:forEach>
-            </select>
-            <br>
-            <br></br>
-            <label><font size="4px">Channels to Add *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <select name="allChnl"  multiple="multiple">
+            </select></th></tr>
+            
+            <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Channels to Add *</font></label></td></th>
+            <th><select name="allChnl"  multiple="multiple">
             <c:forEach var="chnnl" items="${allChnList}" >
             <option value="${chnnl}">${chnnl}</option>>
             </c:forEach>
-            </select>
-            <br><br></br>
-            <input type="submit" class="button button3" value="Update" >
+            </select></th></tr>
+            <tr><th><td>&nbsp;</td></th></tr>
+            <tr><th><td>&nbsp;</td></th>
+            <th><input type="submit" class="buttons button3" value="Update" ></th></tr>
             <p> ${msg} <p>
         
 </form>
+</table>
 </div>
 </center>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
 <br></br>
 <br></br>
 <br></br>

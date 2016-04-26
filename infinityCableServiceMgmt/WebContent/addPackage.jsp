@@ -46,7 +46,24 @@ Released   : 20120624
     margin: 4px 2px;
     cursor: pointer;
 }
-.button3 {border-radius: 8px;}
+.button3 {border-radius: 8px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
+}
+
 </style>
 </head>
 <body>
@@ -76,32 +93,65 @@ Released   : 20120624
 		</ul>
 		<br class="clearfix" />
 	</div>
-	<br></br>
-	<br></br>
-	<center>
-	<div style="padding:30px;">
-<h2>Add Package</h2>  
+	<div id="nav">
 
+
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="addNewPackage"></input>
+		<input type="submit" class="button button3" value="Add Package      "  ></input>
+        
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+		<input type="hidden" name="action" value="updatePackage"></input>
+		<input type="submit"  class="button button3" value="Update Package"  ></input>
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="reports"></input>
+		<input type="submit" class="button button3" value="Reports"  ></input> 
+</form>
+</div>
+<div id="section">
+<center><h2>Add Package</h2></center>
+<table>
 		<form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="addPackage" />
-            <label><font size="4px">Package Name *</font></font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="packageName" required/> <br><br>
-            <label><font size="4px">Description *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="pckgDesc" required/> <br><br>
-            <label><font size="4px">Price *</font></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="text" name="price" required/> <br><br>
-            <select name="channelSelection"  multiple="multiple">
+            <tr><th><td align="left"><label><font size="4px">Package Name *</font></label></td></th>
+            <th><input type="text" name="packageName" required/></th></tr>
+            <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Description *</font></label></td></th>
+            <th><input type="text" name="pckgDesc" required/></th></tr>
+             <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Price *</font></label></td></th>
+            <th><input type="text" name="price" required/> </th>
+             <tr><th>&nbsp;</th></tr>
+            <tr><th><td align="left"><label><font size="4px">Select Channels To Add*</font></label></th>
+            <th><select name="channelSelection"  multiple="multiple">
             <c:forEach var="channel" items="${channelList}" >
             <option value="${channel}">${channel}</option>>
             </c:forEach>
-            </select>
-            <br></br>
-            <input type="submit" class="button button3" value="ADD" >
+            </select></th></tr>
+             <tr><th>&nbsp;</th></tr>
+            <tr><th><td>&nbsp;</td></th>
+            <th><input type="submit" class="button button3" value="ADD" ></th></tr>
             <p> ${msg} <p>
         
 </form>
+</table>
 </div>
-</center>
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
 <br></br>
 <br></br>
 <br></br>

@@ -12,22 +12,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Graph {
 
 	public static JFreeChart getRegChart(Map<String, Integer> dataMap) {
-		/*
-		 * DefaultPieDataset dataset = new DefaultPieDataset(); for(VoterDetails
-		 * voterDetObj : voterDetList){
-		 * dataset.setValue(voterDetObj.getRes_city_desc(),Double.parseDouble(
-		 * voterDetObj.getVoter_reg_num())); } boolean legend = true; boolean
-		 * tooltips = false; boolean urls = false;
-		 */
-
-		// JFreeChart chart = ChartFactory.createPieChart("Population
-		// Distribution of Mecklenburg County", dataset, legend, tooltips,
-		// urls);
-
-		// chart.setBorderPaint(Color.GREEN);
-		// chart.setBorderStroke(new BasicStroke(5.0f));
-		// chart.setBorderVisible(true);
-		
 		DefaultCategoryDataset bardataset = new DefaultCategoryDataset();
 		for (String key : dataMap.keySet()) {
 			bardataset.setValue(dataMap.get(key), "No of Users", key);
@@ -47,6 +31,48 @@ public class Graph {
 		barchart.setBorderVisible(true);
 		return barchart;
 
+	}
+
+	public static JFreeChart getPckgChart(Map<String, Integer> dataMap) {
+		DefaultCategoryDataset bardataset = new DefaultCategoryDataset();
+		for (String key : dataMap.keySet()) {
+			bardataset.setValue(dataMap.get(key), "No of Users", key);
+		}
+
+		JFreeChart barchart = ChartFactory.createBarChart("Subscription Per Package", // Title
+				"Package Type", // X-axis Label
+				"Number of Subsriptions", // Y-axis Label
+				bardataset, // Dataset
+				PlotOrientation.VERTICAL, // Plot orientation
+				false, // Show legend
+				true, // Use tooltips
+				false // Generate URLs
+		);
+		barchart.setBorderPaint(Color.BLUE);
+		barchart.setBorderStroke(new BasicStroke(5.0f));
+		barchart.setBorderVisible(true);
+		return barchart;
+	}
+
+	public static JFreeChart getTotalSale(Map<String, Double> dataMap) {
+		DefaultCategoryDataset bardataset = new DefaultCategoryDataset();
+		for (String key : dataMap.keySet()) {
+			bardataset.setValue(dataMap.get(key), "Sale Per Package", key);
+		}
+
+		JFreeChart barchart = ChartFactory.createBarChart("Sale Per Package", // Title
+				"Package Type", // X-axis Label
+				"Sale per Package", // Y-axis Label
+				bardataset, // Dataset
+				PlotOrientation.VERTICAL, // Plot orientation
+				false, // Show legend
+				true, // Use tooltips
+				false // Generate URLs
+		);
+		barchart.setBorderPaint(Color.BLUE);
+		barchart.setBorderStroke(new BasicStroke(5.0f));
+		barchart.setBorderVisible(true);
+		return barchart;
 	}
 
 }

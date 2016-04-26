@@ -2,7 +2,9 @@ package com.infinityCableService.dao;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -330,6 +332,72 @@ public class PackagesDao {
 			}
 			return price;
 
+		}
+
+		public static Map<String, Integer> getPckgCount(String startDate, String endDate) {
+			Map<String, Integer> resultMap = new HashMap<String, Integer>();
+			
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			try {
+				List<Packages> pckList = getAllPcgks();
+				for(Packages pckgObj :pckList){
+					
+					String hql = "SELECT COUNT(cs.p_Id) AS pckgCount FROM Customer_Subscription cs WHERE cs.p_Id = :pid AND  cs.start_Date BETWEEN :startDt AND :endDt)";
+					Query query = session.createQuery(hql);
+					query.setParameter("pid", pckgObj.getp_Id());
+					query.setParameter("startDt", startDate);
+					query.setParameter("endDt", endDate);
+					int count = ((Long)query.uniqueResult()).intValue();
+					resultMap.put(pckgObj.getp_Name(), count);
+					
+					
+				}
+				
+				
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return resultMap;
+		}
+
+		public static Map<String, Double> getPckgSalesCount(String startDate, String endDate) {
+Map<String, Double> resultMap = new HashMap<String, Double>();
+			
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = null;
+			transaction = session.beginTransaction();
+			try {
+				List<Packages> pckList = getAllPcgks();
+				for(Packages pckgObj :pckList){
+					
+					String hql = "SELECT COUNT(cs.p_Id) AS pckgCount FROM Customer_Subscription cs WHERE cs.p_Id = :pid AND  cs.start_Date BETWEEN :startDt AND :endDt)";
+					
+					Query query = session.createQuery(hql);
+					query.setParameter("pid", pckgObj.getp_Id());
+					query.setParameter("startDt", startDate);
+					query.setParameter("endDt", endDate);
+					int count = ((Long)query.uniqueResult()).intValue();
+					resultMap.put(pckgObj.getp_Name(), count*pckgObj.getp_Price());
+					
+					
+				}
+			
+						
+			} catch (HibernateException exception) {
+				if (transaction != null)
+					transaction.rollback();
+				exception.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return resultMap;
 		}
 	}
 		

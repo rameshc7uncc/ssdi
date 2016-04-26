@@ -39,7 +39,7 @@ public class PackagesControllerServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);;
 	}
@@ -48,7 +48,7 @@ public class PackagesControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@SuppressWarnings("unused")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "";
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
@@ -183,10 +183,20 @@ public class PackagesControllerServlet extends HttpServlet {
 					
 					
 					if(reportType.equals("totalSales")){
-						// query total sales
+						Map<String, Double> resultMap = new HashMap<String, Double>();
+						resultMap = PackagesDao.getPckgSalesCount(startDate, endDate);
+						for(String key :resultMap.keySet()){
+							System.out.println(key+","+resultMap.get(key) );
+						}
+						session.setAttribute("dataMap", resultMap);
 						
 					}else if(reportType.equals("salesPerPackg")){
-						//query for sales per pckg
+						Map<String, Integer> resultMap = new HashMap<String, Integer>();
+						resultMap = PackagesDao.getPckgCount(startDate, endDate);
+						for(String key :resultMap.keySet()){
+							System.out.println(key+","+resultMap.get(key) );
+						}
+						session.setAttribute("dataMap", resultMap);
 						
 					}else if(reportType.equals("totalRegCount")){
 						Map<String, Integer> resultMap = new HashMap<String, Integer>();

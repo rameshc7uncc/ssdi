@@ -39,7 +39,11 @@ public class ChartGenerationControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-
+        int width = 600;
+        int height = 450;
+        
+        OutputStream outputStream;
+        JFreeChart chart ;
         String url = "/adminHomePage.jsp";
 
         // get current action
@@ -49,12 +53,32 @@ public class ChartGenerationControllerServlet extends HttpServlet {
         }else {
             switch (action) {
                 case "getRegChart":
+                	Map<String, Integer> dataMap;
                     response.setContentType("image/png");
-                    OutputStream outputStream = response.getOutputStream();
-                    Map<String, Integer> dataMap = (Map<String, Integer>) session.getAttribute("dataMap");
-                    JFreeChart chart = Graph.getRegChart(dataMap);
-                    int width = 600;
-                    int height = 450;
+                     outputStream = response.getOutputStream();
+                     dataMap = (Map<String, Integer>) session.getAttribute("dataMap");
+                     chart = Graph.getRegChart(dataMap);
+                    
+                    ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
+                    break;
+                case "totalpackagesale":
+                	Map<String, Integer> dataMap1;
+                	response.setContentType("image/png");
+                	outputStream = response.getOutputStream();
+                    dataMap1 = (Map<String, Integer>) session.getAttribute("dataMap");
+                    chart = Graph.getPckgChart(dataMap1);
+                    
+                    ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
+                    break;
+                    
+                case "totalsale":
+                	
+                	Map<String, Double> dataMap2;
+                	response.setContentType("image/png");
+                	outputStream = response.getOutputStream();
+                    dataMap2 = (Map<String, Double>) session.getAttribute("dataMap");
+                    chart = Graph.getTotalSale(dataMap2);
+                    
                     ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
                     break;
                     

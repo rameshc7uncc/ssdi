@@ -81,14 +81,13 @@ Released   : 20120624
 		<br class="clearfix" />
 	</div>
 	<!-- -header -->
-<div class="right">
-  <p><b>Hello Admin !!</b></p>
+<div id="section">
+<center><p><h3></h3>Welcome ${theAdmin.getFirstName()} !!</h3></p></center>
 </div>
-<br></br>
-<br></br>
+
+
 <div style="padding:30px;">
 
-&nbsp
 <form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="addNewPackage"></input>
 		<input type="submit" class="button button3" value="Add Package      "  ></input>
@@ -97,7 +96,7 @@ Released   : 20120624
 &nbsp
 <form action="PackagesControllerServlet" method="post">
 		<input type="hidden" name="action" value="updatePackage"></input>
-		<input type="submit"  class="button button3" value="Update Package"  ></input><br></br>
+		<input type="submit"  class="button button3" value="Update Package"  ></input>
 </form>
 &nbsp
 <form action="PackagesControllerServlet" method="post">
@@ -105,6 +104,7 @@ Released   : 20120624
 		<input type="submit" class="button button3" value="    Reports           "  ></input> 
 </form>
 </div>
+
         <br></br>
         <br></br>
         <br></br>

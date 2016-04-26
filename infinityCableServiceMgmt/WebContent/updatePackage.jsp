@@ -55,7 +55,35 @@ Released   : 20120624
     margin: 4px 2px;
     cursor: pointer;
 }
-.button3 {border-radius: 8px;}
+.buttons {
+    background-color: #778899;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
+}
 </style>
 </head>
 <body>
@@ -76,20 +104,37 @@ Released   : 20120624
 				</li>
 		
 			
-			<li class="second">
-				<a href="UserControllerServlet?action=logout">Logout</a>
+			<li style="float:right" class="second">
+				<a href="index.html">Logout</a>
 				</li>
 			
 			
 		</ul>
 		<br class="clearfix" />
 	</div>
-<br></br>
-<br></br>
+<div id="nav">
+
+
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="addNewPackage"></input>
+		<input type="submit" class="button button3" value="Add Package      "  ></input>
+        
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+		<input type="hidden" name="action" value="updatePackage"></input>
+		<input type="submit"  class="button button3" value="Update Package"  ></input>
+</form>
+&nbsp
+<form action="PackagesControllerServlet" method="post">
+        <input type="hidden" name="action" value="reports"></input>
+		<input type="submit" class="button button3" value="Reports"  ></input> 
+</form>
+</div>
 
 
 <center>
-<div style="padding:30px;">
+<div id="section">
 <h2>Update Package</h2> 
 
 <table>
@@ -106,13 +151,13 @@ Released   : 20120624
             <td> <form action="PackagesControllerServlet" method="post">
        			 <input type="hidden" name="action" value="editPackage" />
        			 <input type="hidden" name="pckgSelected" value="${pckg}" />
-				 <input type="submit" class="button button3" value="Edit">
+				 <input type="submit" class="buttons button3" value="Edit">
 				 </form>
 			 </td>
             <td> <form action="PackagesControllerServlet" method="post">
        			 <input type="hidden" name="action" value="deletePackage" />
        			 <input type="hidden" name="pckgSelected" value="${pckg}" />
-				 <input type="submit" class="button button3" value="Delete">
+				 <input type="submit" class="buttons button3" value="Delete">
 				 </form>
 			</td>
         </c:forEach>
@@ -125,6 +170,15 @@ Released   : 20120624
       <br></br>
        <br></br>
         <br></br>
+         <br></br>
+          <br></br>
+          <br></br>
+         <br></br>
+          <br></br>
+          <br></br>
+         <br></br>
+          <br></br>
+          <br></br>
          <br></br>
           <br></br>
     <div id="page-bottom">
