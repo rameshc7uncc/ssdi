@@ -54,6 +54,7 @@ public class PackagesControllerServlet extends HttpServlet {
 		String url = "";
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
+		try{
 		if (action == null) {
 			url = "/adminHomePage.jsp";
 		} else {
@@ -238,6 +239,10 @@ public class PackagesControllerServlet extends HttpServlet {
 					break;
 			}
 
+		}
+		}catch(Exception e){
+			System.out.println("!!Error occured while processing"+" action: "+action+" in CustomerControllerServlet!!");
+			e.printStackTrace();
 		}
 		RequestDispatcher rd=request.getRequestDispatcher(url);  
 		rd.forward(request, response);

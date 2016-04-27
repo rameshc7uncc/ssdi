@@ -53,6 +53,7 @@ public class UserControllerServlet extends HttpServlet {
 		String url = "";
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
+		try{
 		if (action == null) {
 			url = "/loginPage.jsp";
 		} else {
@@ -178,6 +179,10 @@ public class UserControllerServlet extends HttpServlet {
                 break;
                 
 			}
+		}
+		}catch(Exception e){
+			System.out.println("!!Error occured while processing"+" action: "+action+" in UserControllerServlet!!");
+			e.printStackTrace();
 		}
 		RequestDispatcher rd=request.getRequestDispatcher(url);  
 		rd.forward(request, response);

@@ -48,61 +48,66 @@ public class ChartGenerationControllerServlet extends HttpServlet {
 
         // get current action
         String action = request.getParameter("action");
-        if (action == null) {
-            url = "/adminHomePage.jsp";  // default action
-        }else {
-            switch (action) {
-                case "getRegChart":
-                	Map<String, Integer> dataMap;
-                    response.setContentType("image/png");
-                     outputStream = response.getOutputStream();
-                     dataMap = (Map<String, Integer>) session.getAttribute("dataMap");
-                     chart = Graph.getRegChart(dataMap);
-                    
-                    ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
-                    break;
-                case "totalpackagesale":
-                	Map<String, Integer> dataMap1;
-                	response.setContentType("image/png");
-                	outputStream = response.getOutputStream();
-                    dataMap1 = (Map<String, Integer>) session.getAttribute("dataMap");
-                    chart = Graph.getPckgChart(dataMap1);
-                    
-                    ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
-                    break;
-                    
-                case "totalsale":
-                	
-                	Map<String, Double> dataMap2;
-                	response.setContentType("image/png");
-                	outputStream = response.getOutputStream();
-                    dataMap2 = (Map<String, Double>) session.getAttribute("dataMap");
-                    chart = Graph.getTotalSale(dataMap2);
-                    
-                    ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
-                    break;
-                    
-                case "downloadChnlListing":
-    				ServletContext sc = getServletContext();
-    				String path = sc.getRealPath("");
-    				String filename ="Channel Listing.pdf";
-    				
-    				response.setContentType("application/octet-stream");
-    				response.setHeader("content-disposition", "attachment; filename="+filename);
-    				
-    				FileInputStream in = new FileInputStream(path+"/"+filename);
-    				PrintWriter out = response.getWriter();
-    				
-    				int i=in.read();
-    				while(i != -1){
-    					out.write(i);
-    					i = in.read();    					
-    				}
-    				in.close();
-    				out.close();
-    				break;
-            }
-        }
+        try{
+	    if (action == null) {
+	        url = "/adminHomePage.jsp";  // default action
+	    }else {
+	        switch (action) {
+	            case "getRegChart":
+	            	Map<String, Integer> dataMap;
+	                response.setContentType("image/png");
+	                 outputStream = response.getOutputStream();
+	                 dataMap = (Map<String, Integer>) session.getAttribute("dataMap");
+	                 chart = Graph.getRegChart(dataMap);
+	                
+	                ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
+	                break;
+	            case "totalpackagesale":
+	            	Map<String, Integer> dataMap1;
+	            	response.setContentType("image/png");
+	            	outputStream = response.getOutputStream();
+	                dataMap1 = (Map<String, Integer>) session.getAttribute("dataMap");
+	                chart = Graph.getPckgChart(dataMap1);
+	                
+	                ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
+	                break;
+	                
+	            case "totalsale":
+	            	
+	            	Map<String, Double> dataMap2;
+	            	response.setContentType("image/png");
+	            	outputStream = response.getOutputStream();
+	                dataMap2 = (Map<String, Double>) session.getAttribute("dataMap");
+	                chart = Graph.getTotalSale(dataMap2);
+	                
+	                ChartUtilities.writeChartAsPNG(outputStream, chart, width, height);
+	                break;
+	                
+	            case "downloadChnlListing":
+					ServletContext sc = getServletContext();
+					String path = sc.getRealPath("");
+					String filename ="Channel Listing.pdf";
+					
+					response.setContentType("application/octet-stream");
+					response.setHeader("content-disposition", "attachment; filename="+filename);
+					
+					FileInputStream in = new FileInputStream(path+"/"+filename);
+					PrintWriter out = response.getWriter();
+					
+					int i=in.read();
+					while(i != -1){
+						out.write(i);
+						i = in.read();    					
+					}
+					in.close();
+					out.close();
+					break;
+	        }
+	    }
+        }catch(Exception e){
+			System.out.println("!!Error occured while processing"+" action: "+action+" in ChartControllerServlet!!");
+			e.printStackTrace();
+		}
 
         
     }

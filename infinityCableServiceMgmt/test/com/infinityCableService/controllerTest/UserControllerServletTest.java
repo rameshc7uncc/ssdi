@@ -122,7 +122,7 @@ public class UserControllerServletTest  extends Mockito{
 
 		when(request.getRequestDispatcher("/adminHomePage.jsp")).thenReturn(dispatcher);
         parameters.put("action", "login");
-        parameters.put("email", "drani@uncc.edu");
+        parameters.put("email", "lsridhar@uncc.edu");
         parameters.put("password", "Summer100");
         
         servlet.doGet(request, response);

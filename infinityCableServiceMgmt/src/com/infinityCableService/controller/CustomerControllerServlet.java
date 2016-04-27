@@ -57,6 +57,7 @@ public class CustomerControllerServlet extends HttpServlet {
 		String url = "";
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
+		try{
 		if (action == null) {
 			url = "/customerHomePage.jsp";
 		} else {
@@ -84,7 +85,7 @@ public class CustomerControllerServlet extends HttpServlet {
 				User updatedUser = UserDao.getUserBasedOnEmailAndPswd(updateUser.getEmailAddress(),
 						updateUser.getPassword());
 				session.setAttribute("theUser", updatedUser);
-				session.setAttribute("updateSuccessMsg", "Your details have been successfully updated.");
+				request.setAttribute("updateSuccessMsg", "Your details have been successfully updated.");
 				url = "/updateProfile.jsp";
 				break;
 
@@ -250,6 +251,10 @@ public class CustomerControllerServlet extends HttpServlet {
 
 			}
 
+		}
+		}catch(Exception e){
+			System.out.println("!!Error occured while processing"+" action: "+action+" in CustomerControllerServlet!!");
+			e.printStackTrace();
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

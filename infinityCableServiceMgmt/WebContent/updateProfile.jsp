@@ -130,6 +130,7 @@ th, td {
  
  <div id="section">
  <center><h2>Update Profile</h2>
+ <p>${updateSuccessMsg}</p>
  <table>
  <form action="CustomerControllerServlet" method="post">
              <input type="hidden" name="action" value="updateDetails" />
@@ -162,7 +163,7 @@ th, td {
          
            </table>
          
-        <p>${updateSuccessMsg}</p>
+        
        
          </center>
          </div>
