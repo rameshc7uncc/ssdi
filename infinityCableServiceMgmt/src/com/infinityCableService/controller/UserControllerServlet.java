@@ -103,40 +103,120 @@ public class UserControllerServlet extends HttpServlet {
 
 				break;
 			case "signup":
+				String message;
 				String fName = request.getParameter("firstName");
 				String lName = request.getParameter("lastName");
 				email = request.getParameter("email");
-				long phoneNo = Long.parseLong(request.getParameter("phoneNumber"));
+				
 				String address1 = request.getParameter("address1");
 				String address2 = request.getParameter("address2");
 				String city = request.getParameter("city");
 				String state = request.getParameter("state");
-				int zipcode = Integer.parseInt(request.getParameter("zipcode"));
+				long phoneNo=0;
+				int zipcode=0;
+				try{
+				phoneNo = Long.parseLong(request.getParameter("phoneNumber"));
+				zipcode = Integer.parseInt(request.getParameter("zipcode"));
+				
+				}
+				catch(NumberFormatException e)
+				{	
+					 message="Please enter only numeric values for Phone Numver and Zip code";
+					 setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+			            forwardRequest(request, response, "signup.jsp", message);
+			            return;
+				}
 				password = request.getParameter("password");
 				String confirmPassword = request.getParameter("confirm_password");
 				java.util.Date date = new java.util.Date();
 				String userCreateDate = new Timestamp(date.getTime()).toString();
 				// validate the username, email, password and confirm password
-				if ((password != null && !password.isEmpty())
-						&& (confirmPassword != null && !confirmPassword.isEmpty())) {
-					// check if password and confirm password are same
-					if (password.equals(confirmPassword)) {
-						System.out.println("Password and Confirm password values are same");
-						// create the user
-						Long userIDofCust = UserDao.createUser(fName, lName, email, phoneNo, address1, address2, city,
-								state, zipcode, password, "CUSTOMER", "Active", userCreateDate);
-						System.out.println("User Successfully registerd. User ID: " + userIDofCust);
-						User newUser = UserDao.getUserBasedOnEmailAndPswd(email, password);
-						session.setAttribute("theUser", newUser);
-						setAttributesForCustHomePg(newUser, session);
-						url = "/customerHomePage.jsp";
-					} // else return to signup page
-					else {
-						request.setAttribute("msg", "Password and Confirm Password are not same");
-						url = "/signup.jsp";
-					}
-				}
 				
+		        if(null == fName || "".equals(fName) ){
+		            message="Please enter your First name.";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        
+		        if(null == lName || "".equals(lName) ){
+		            message="Please enter your Last name.";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        
+		        if(null == email || "".equals(email) ){
+		            message="Please enter your EMail ID";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        
+		        if(null == address1 || "".equals(address1) ){
+		            message="Please enter your Address Line 1";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        
+		        if(null == address2 || "".equals(address2) ){
+		            message="Please enter your Address Line 2";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        if(null == city || "".equals(city) ){
+		            message="Please enter your city";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        if(null == state || "".equals(state) ){
+		            message="Please enter your state";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		      
+		        if(null == password || "".equals(password) ){
+		            message="Please enter your password";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		        if(null == confirmPassword || "".equals(confirmPassword) ){
+		            message="Please enter your password in renter field";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+		       
+	
+		        if(password.length()<6){
+		            message="Please Enter a Password Greater than 6 characters";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+
+		        if(!password.equals(confirmPassword)){
+		            message="Your Passswords dont match! Please enter again!";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		        }
+
+		        int indexOfAt=email.indexOf("@");
+		        int lastIndexOfDot=email.lastIndexOf(".");
+
+		        if(indexOfAt <1 || lastIndexOfDot < indexOfAt+2 || lastIndexOfDot+2 >= email.length()){
+		            message="Please Enter Valid E-Mail ID.[username@domain.com]";
+		            setAttributesInRequestObject(request,fName,lName,email,phoneNo,address1,address2,city,state,zipcode);
+		            forwardRequest(request, response, "signup.jsp", message);
+		            return;
+		            }
+
 				break;
 			case "forgotPassword":
 				email = request.getParameter("email");
@@ -207,5 +287,23 @@ public class UserControllerServlet extends HttpServlet {
 			session.setAttribute("isSubscribed", false);
 			
 		}
+	}
+	private void forwardRequest(HttpServletRequest request, HttpServletResponse response, String PageName,
+			String message) throws ServletException, IOException {
+		  request.setAttribute("message", message);
+	        request.getRequestDispatcher(PageName).forward(request, response);
+	}
+	private void setAttributesInRequestObject(HttpServletRequest request, String fName, String lName, String email,
+			long phoneNo, String address1, String address2, String city, String state, int zipcode) {
+		// TODO Auto-generated method stub
+		request.setAttribute("firstName", fName);
+		request.setAttribute("lastName", lName);
+        request.setAttribute("email", email);
+        request.setAttribute("phoneNumber", phoneNo);
+        request.setAttribute("address1", address1);
+        request.setAttribute("address2", address2);
+        request.setAttribute("city", city);
+        request.setAttribute("state", state);
+        request.setAttribute("zipcode", zipcode);
 	}
 }

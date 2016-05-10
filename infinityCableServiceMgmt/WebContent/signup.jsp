@@ -97,8 +97,11 @@ if(null == message){
                 <form  name="signup"  action="UserControllerServlet" method="post">
                 
                 <center>
-                 <div class="error_strings"><%=message%></div> 
-                	<input type="hidden" name="action" value="signup" />
+                <br>
+                <h3>
+                 <div class="error_strings" style="color:red"><%=message%></div>
+                 </h3>	 
+                <input type="hidden" name="action" value="signup" />
                     <table align="center">
                         <tr>
                             <td>&nbsp;</td>
