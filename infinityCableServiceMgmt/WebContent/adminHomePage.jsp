@@ -53,6 +53,24 @@ Released   : 20120624
     cursor: pointer;
 }
 .button3 {border-radius: 8px;}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:900px;
+    width:200px;
+    float:left;
+    padding-top:30px;
+    padding-left:20px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding-top:40px;
+    padding-left:90px;	 	 
+}
+#img1{
+float: right;
+}
 </style>
 </head>
 <body>
@@ -81,12 +99,12 @@ Released   : 20120624
 		<br class="clearfix" />
 	</div>
 	<!-- -header -->
-<div id="section">
-<center><p><h3></h3>Welcome ${theAdmin.getFirstName()} !!</h3></p></center>
-</div>
+  <div class="right">
+  <img id ="img1" src="images/admin_image.jpg" height = "80" width = "80" alt="" />
+  <h5  >Welcome Admin!</h5>
+</div> 
+<div id="nav">
 
-
-<div style="padding:30px;">
 
 <form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="addNewPackage"></input>
@@ -101,10 +119,18 @@ Released   : 20120624
 &nbsp
 <form action="PackagesControllerServlet" method="post">
         <input type="hidden" name="action" value="reports"></input>
-		<input type="submit" class="button button3" value="    Reports           "  ></input> 
+		<input type="submit" class="button button3" value="Reports"  ></input> 
 </form>
 </div>
+<div id="section">
+<center>
 
+<br></br>
+
+<img   src="images/images.png" height = "350" width = "500" alt="" />
+<img  src="images/images2.png" height = "350" width = "500" alt="" />
+ </center>
+</div>
         <br></br>
         <br></br>
         <br></br>
@@ -114,6 +140,15 @@ Released   : 20120624
         <br></br>
         <br></br>
         <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+       
 
 <div id="page-bottom">
 		
